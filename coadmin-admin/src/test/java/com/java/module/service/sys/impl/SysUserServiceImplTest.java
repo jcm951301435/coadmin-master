@@ -1,8 +1,8 @@
 package com.java.module.service.sys.impl;
 
-import com.java.common.CommonPage;
-import com.java.module.model.sys.SysUser;
-import com.java.module.service.sys.SysUserService;
+import com.java.common.model.CommonPage;
+import com.java.module.sys.model.SysUser;
+import com.java.module.sys.service.SysUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
