@@ -1,9 +1,9 @@
-package com.java.module.sys.dto;
+package com.java.module.security.model;
 
 
-import com.java.module.sys.model.SysPermission;
-import com.java.module.sys.model.SysUser;
 import com.java.common.util.StringUtils;
+import com.java.module.sys.model.SysMenu;
+import com.java.module.sys.model.SysUser;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
@@ -25,20 +25,20 @@ import java.util.stream.Collectors;
 @Getter
 @AllArgsConstructor
 @ToString
-public class UserDetailsDTO implements UserDetails {
+public class SecurityUserDetails implements UserDetails {
 
     private static final long serialVersionUID = 1L;
 
     private final SysUser sysUser;
 
-    private final List<SysPermission> permissionList;
+    private final List<SysMenu> menuList;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Set<String> permissionNameSet = permissionList
-                .stream().filter(permission -> StringUtils.isNotEmpty(permission.getName()))
-                .map(SysPermission::getName).collect(Collectors.toSet());
-        return permissionNameSet.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+        Set<String> menuNameSet = menuList
+                .stream().filter(menu -> StringUtils.isNotEmpty(menu.getName()))
+                .map(SysMenu::getName).collect(Collectors.toSet());
+        return menuNameSet.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
     }
 
     @Override

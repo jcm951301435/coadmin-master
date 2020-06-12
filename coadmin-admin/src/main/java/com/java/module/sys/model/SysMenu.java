@@ -5,14 +5,14 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * sys_permission 权限
+ * sys_menu 权限
  *
  * @author: jcm
  * @date: 2020/05/08
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class SysPermission extends BaseEntity {
+public class SysMenu extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 

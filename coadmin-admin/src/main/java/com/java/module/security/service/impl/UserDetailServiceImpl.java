@@ -1,15 +1,13 @@
-package com.java.module.sys.service.impl;
+package com.java.module.security.service.impl;
 
-import com.java.module.sys.dto.UserDetailsDTO;
-import com.java.module.sys.model.SysPermission;
+import com.java.module.security.model.SecurityUserDetails;
+import com.java.module.sys.model.SysMenu;
 import com.java.module.sys.model.SysUser;
 import com.java.module.sys.service.SysUserService;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,10 +26,10 @@ public class UserDetailServiceImpl implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public org.springframework.security.core.userdetails.UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         SysUser sysUser = userService.getUserByUserName(username);
-        List<SysPermission> permissionList = new ArrayList<>();
-        return new UserDetailsDTO(sysUser, permissionList);
+        List<SysMenu> menuList = userService.listMenusByUserId(sysUser.getId());
+        return new SecurityUserDetails(sysUser, menuList);
     }
 
 }

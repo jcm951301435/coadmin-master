@@ -9,23 +9,23 @@ package com.java.common.util;
 public class StringUtils {
 
     /**
-     * 是否为非空
-     *
-     * @param str
-     * @return
-     */
-    public static boolean isNotEmpty(String str) {
-        return org.apache.commons.lang3.StringUtils.isEmpty(str);
-    }
-
-    /**
      * 是否为空
      *
      * @param str
      * @return
      */
     public static boolean isEmpty(String str) {
-        return !isNotEmpty(str);
+        return org.apache.commons.lang3.StringUtils.isEmpty(str);
+    }
+
+    /**
+     * 是否为非空
+     *
+     * @param str
+     * @return
+     */
+    public static boolean isNotEmpty(String str) {
+        return !isEmpty(str);
     }
 
     /**

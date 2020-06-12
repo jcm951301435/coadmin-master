@@ -5,14 +5,14 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * sys_role_permission_relation 角色-权限关系
+ * sys_role_menu_relation 角色-权限关系
  *
  * @author: jcm
  * @date: 2020/05/08
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class SysRolePermissionRelation extends BaseEntity {
+public class SysRoleMenuRelation extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
@@ -24,6 +24,6 @@ public class SysRolePermissionRelation extends BaseEntity {
     /**
      * 权限编号
      */
-    private Long permissionId;
+    private Long menuId;
 
 }

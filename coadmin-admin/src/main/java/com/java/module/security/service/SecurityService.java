@@ -1,7 +1,7 @@
-package com.java.module.sys.service;
+package com.java.module.security.service;
 
-import com.java.module.sys.dto.UserLoginDTO;
-import org.springframework.security.core.Authentication;
+import com.java.module.security.service.dto.UserLoginDTO;
+import com.java.module.security.service.dto.LoginParamsDTO;
 
 /**
  * 认证业务接口
@@ -14,10 +14,10 @@ public interface SecurityService {
     /**
      * 登录
      *
-     * @param userLoginDTO
+     * @param loginParamsDTO
      * @return
      */
-    Authentication login(UserLoginDTO userLoginDTO);
+    UserLoginDTO login(LoginParamsDTO loginParamsDTO);
 
     /**
      * 密码加密
@@ -25,5 +25,7 @@ public interface SecurityService {
      * @return
      */
     String passwordEncode(String password);
+
+
 
 }

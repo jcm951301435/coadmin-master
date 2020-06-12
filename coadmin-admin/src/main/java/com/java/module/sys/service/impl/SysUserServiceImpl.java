@@ -4,15 +4,21 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.java.common.exception.DuplicateEntityException;
 import com.java.common.model.CommonPage;
+import com.java.common.util.CollectionUtils;
+import com.java.module.security.model.SecurityUserDetails;
+import com.java.module.sys.dao.SysMenuDao;
+import com.java.module.sys.dao.SysRoleDao;
 import com.java.module.sys.dao.SysUserDao;
-import com.java.module.sys.dto.UserDetailsDTO;
-import com.java.module.sys.dto.UserInfoDTO;
+import com.java.module.sys.model.SysMenu;
+import com.java.module.sys.model.SysRole;
 import com.java.module.sys.model.SysUser;
 import com.java.module.sys.service.SysUserService;
+import com.java.module.sys.service.dto.UserInfoDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,8 +34,14 @@ public class SysUserServiceImpl implements SysUserService {
 
     private final SysUserDao userDao;
 
-    public SysUserServiceImpl(SysUserDao userDao) {
+    private final SysRoleDao roleDao;
+
+    private final SysMenuDao menuDao;
+
+    public SysUserServiceImpl(SysUserDao userDao, SysRoleDao roleDao, SysMenuDao menuDao) {
         this.userDao = userDao;
+        this.roleDao = roleDao;
+        this.menuDao = menuDao;
     }
 
     @Override
@@ -53,9 +65,9 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    public UserInfoDTO userDetailsToUserInfo(UserDetailsDTO userDetailsDTO) {
+    public UserInfoDTO userDetailsToUserInfo(SecurityUserDetails securityUserDetails) {
         UserInfoDTO userInfoDTO = new UserInfoDTO();
-        SysUser sysUser = userDetailsDTO.getSysUser();
+        SysUser sysUser = securityUserDetails.getSysUser();
         userInfoDTO.setId(sysUser.getId());
         userInfoDTO.setUsername(sysUser.getUsername());
         userInfoDTO.setEmail(sysUser.getEmail());
@@ -63,7 +75,6 @@ public class SysUserServiceImpl implements SysUserService {
         userInfoDTO.setNickName(sysUser.getNickName());
         userInfoDTO.setMobilePhone(sysUser.getMobilePhone());
         userInfoDTO.setEnabled(sysUser.getEnabled());
-        userInfoDTO.setPermissionList(userDetailsDTO.getPermissionList());
         return userInfoDTO;
     }
 
@@ -77,6 +88,16 @@ public class SysUserServiceImpl implements SysUserService {
         Page<SysUser> page = commonPage.getPage();
         userDao.selectPage(page, null);
         return CommonPage.fromPage(page);
+    }
+
+    @Override
+    public List<SysMenu> listMenusByUserId(Long userId) {
+        List<SysRole> roleList = roleDao.listByUserId(userId);
+        if (CollectionUtils.isEmpty(roleList)) {
+            return new ArrayList<>();
+        }
+        Long[] roles = roleList.stream().map(SysRole::getId).toArray(Long[]::new);
+        return menuDao.listByRoleIds(roles);
     }
 
 }

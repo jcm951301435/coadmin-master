@@ -1,4 +1,4 @@
-package com.java.module.sys.dto;
+package com.java.module.security.service.dto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +13,7 @@ import javax.validation.constraints.NotBlank;
  */
 @Getter
 @Setter
-public class UserLoginDTO {
+public class LoginParamsDTO {
 
     @NotBlank
     private String username;

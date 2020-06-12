@@ -6,6 +6,7 @@ spring:
 
 mybatis-plus:
   type-aliases-package: com.java.module.model
+  mapper-locations: classpath:/mybatis/mapper/**/*.xml
 
 jwt:
   tokenHeader: Authorization #JWT存储的请求头

@@ -1,12 +1,9 @@
-package com.java.module.sys.dto;
+package com.java.module.sys.service.dto;
 
 import com.java.common.model.BaseEntity;
-import com.java.module.sys.model.SysPermission;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 /**
  * 用户信息类
@@ -50,10 +47,5 @@ public class UserInfoDTO extends BaseEntity {
      * 是否启用
      */
     private Boolean enabled;
-
-    /**
-     * 权限列表
-     */
-    private List<SysPermission> permissionList = null;
 
 }

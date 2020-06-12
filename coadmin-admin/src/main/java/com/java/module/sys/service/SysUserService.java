@@ -1,8 +1,9 @@
 package com.java.module.sys.service;
 
 import com.java.common.model.CommonPage;
-import com.java.module.sys.dto.UserDetailsDTO;
-import com.java.module.sys.dto.UserInfoDTO;
+import com.java.module.security.model.SecurityUserDetails;
+import com.java.module.sys.service.dto.UserInfoDTO;
+import com.java.module.sys.model.SysMenu;
 import com.java.module.sys.model.SysUser;
 
 import java.util.List;
@@ -35,10 +36,10 @@ public interface SysUserService {
     /**
      * userDetails 转换 UserInfo
      *
-     * @param userDetailsDTO
+     * @param securityUserDetails
      * @return
      */
-    UserInfoDTO userDetailsToUserInfo(UserDetailsDTO userDetailsDTO);
+    UserInfoDTO userDetailsToUserInfo(SecurityUserDetails securityUserDetails);
 
     /**
      * 查询所有数据
@@ -54,5 +55,13 @@ public interface SysUserService {
      * @return
      */
     CommonPage<SysUser> listAll(CommonPage<SysUser> page);
+
+    /**
+     * 根据用户编号查询按钮列表
+     *
+     * @param userId
+     * @return
+     */
+    List<SysMenu> listMenusByUserId(Long userId);
 
 }

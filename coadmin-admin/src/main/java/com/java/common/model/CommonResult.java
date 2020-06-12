@@ -1,5 +1,6 @@
 package com.java.common.model;
 
+import com.java.common.util.StringUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -70,8 +71,11 @@ public class CommonResult<T> {
      * @param <T>
      * @return
      */
-    public static <T> CommonResult<T> unauthorized(T data) {
-        return new CommonResult<T>(ResultCode.UNAUTHORIZED.getCode(), ResultCode.UNAUTHORIZED.getMessage(), data);
+    public static <T> CommonResult<T> unauthorized(String message, T data) {
+        if (StringUtils.isEmpty(message)) {
+            message = ResultCode.UNAUTHORIZED.getMessage();
+        }
+        return new CommonResult<T>(ResultCode.UNAUTHORIZED.getCode(), message, data);
     }
 
     /**
