@@ -27,6 +27,11 @@ public class SysRole extends BaseEntity {
     private Integer scopeType;
 
     /**
+     * 权限值
+     */
+    private String permission;
+
+    /**
      * 备注
      */
     private String remark;

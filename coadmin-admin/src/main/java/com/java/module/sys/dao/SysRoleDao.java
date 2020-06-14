@@ -18,8 +18,8 @@ public interface SysRoleDao extends BaseMapper<SysRole> {
     /**
      * 根据用户编号查询角色列表
      *
-     * @param userId
-     * @return
+     * @param userId .
+     * @return .
      */
     List<SysRole> listByUserId(Long userId);
 

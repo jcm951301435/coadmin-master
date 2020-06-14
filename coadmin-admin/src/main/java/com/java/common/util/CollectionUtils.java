@@ -10,8 +10,9 @@ public class CollectionUtils {
 
     /**
      * 判断是否为空
-     * @param collection
-     * @return
+     *
+     * @param collection .
+     * @return .
      */
     public static boolean isEmpty(Collection<?> collection) {
         return org.springframework.util.CollectionUtils.isEmpty(collection);
@@ -19,8 +20,9 @@ public class CollectionUtils {
 
     /**
      * 判断是否不为空
-     * @param collection
-     * @return
+     *
+     * @param collection .
+     * @return .
      */
     public static boolean isNotEmpty(Collection<?> collection) {
         return !isEmpty(collection);

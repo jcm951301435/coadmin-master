@@ -1,8 +1,6 @@
 package com.java.module.security.model;
 
 
-import com.java.common.util.StringUtils;
-import com.java.module.sys.model.SysMenu;
 import com.java.module.sys.model.SysUser;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,7 +10,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -31,14 +28,13 @@ public class SecurityUserDetails implements UserDetails {
 
     private final SysUser sysUser;
 
-    private final List<SysMenu> menuList;
+    private final Set<String> permissions;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Set<String> menuNameSet = menuList
-                .stream().filter(menu -> StringUtils.isNotEmpty(menu.getName()))
-                .map(SysMenu::getName).collect(Collectors.toSet());
-        return menuNameSet.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+        return permissions.stream()
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
     }
 
     @Override

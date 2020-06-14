@@ -3,6 +3,7 @@ package com.java.module.security.action;
 import com.java.common.model.CommonResult;
 import com.java.module.security.service.SecurityService;
 import com.java.module.security.service.dto.LoginParamsDTO;
+import com.java.module.security.service.dto.UserInfoDTO;
 import com.java.module.security.service.dto.UserLoginDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -35,7 +36,14 @@ public class AuthorizationController {
 
     @ApiOperation("获取权限")
     @GetMapping("/info")
-    public CommonResult<String> getUserInfo() {
+    public CommonResult<UserInfoDTO> getUserInfo() {
+        UserInfoDTO userInfoDTO = securityService.getUserInfo();
+        return CommonResult.success(userInfoDTO);
+    }
+
+    @ApiOperation("退出登录")
+    @DeleteMapping("/logout")
+    public CommonResult<String> logout() {
         return null;
     }
 

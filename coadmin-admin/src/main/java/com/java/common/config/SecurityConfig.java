@@ -98,8 +98,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
      * 提供 AuthenticationManager Bean
-     * @return
-     * @throws Exception
+     * @return .
+     * @throws Exception .
      */
     @Bean
     @Override

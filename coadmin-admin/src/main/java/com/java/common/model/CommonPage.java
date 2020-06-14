@@ -34,9 +34,9 @@ public class CommonPage<T> {
     /**
      * 根据 Page 构造 CommonPage
      *
-     * @param page
-     * @param <E>
-     * @return
+     * @param page .
+     * @param <E>  .
+     * @return .
      */
     public static <E> CommonPage<E> fromPage(Page<E> page) {
         CommonPage<E> commonPage = new CommonPage<>();
@@ -52,12 +52,11 @@ public class CommonPage<T> {
      * 根据 CommonPage 构造 Page
      * 主要用于调用 dao 方法
      *
-     * @param <E>
-     * @return
+     * @param <E> .
+     * @return .
      */
     public <E> Page<E> getPage() {
         return new Page<>(this.pageNum, this.getPageSize());
     }
-
 
 }

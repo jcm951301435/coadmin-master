@@ -22,9 +22,10 @@ public class CommonResult<T> {
 
     /**
      * 返回成功信息
-     * @param data
-     * @param <T>
-     * @return
+     *
+     * @param data .
+     * @param <T>  .
+     * @return .
      */
     public static <T> CommonResult<T> success(T data) {
         return CommonResult.success(data, ResultCode.SUCCESS.getMessage());
@@ -36,9 +37,10 @@ public class CommonResult<T> {
 
     /**
      * 返回失败 500
-     * @param message
-     * @param <T>
-     * @return
+     *
+     * @param message .
+     * @param <T>     .
+     * @return .
      */
     public static <T> CommonResult<T> failure(String message) {
         return new CommonResult<>(ResultCode.FAILED.getCode(), message, null);
@@ -46,10 +48,11 @@ public class CommonResult<T> {
 
     /**
      * 返回失败 500
-     * @param resultCode
-     * @param message
-     * @param <T>
-     * @return
+     *
+     * @param resultCode .
+     * @param message    .
+     * @param <T>        .
+     * @return .
      */
     public static <T> CommonResult<T> failure(ResultCode resultCode, String message) {
         return new CommonResult<>(resultCode.getCode(), message, null);
@@ -57,9 +60,10 @@ public class CommonResult<T> {
 
     /**
      * 返回失败 400
-     * @param message
-     * @param <T>
-     * @return
+     *
+     * @param message .
+     * @param <T>     .
+     * @return .
      */
     public static <T> CommonResult<T> validateFailed(String message) {
         return new CommonResult<>(ResultCode.VALIDATE_FAILED.getCode(), message, null);
@@ -67,22 +71,24 @@ public class CommonResult<T> {
 
     /**
      * 未登录返回结果 401
-     * @param data
-     * @param <T>
-     * @return
+     *
+     * @param data .
+     * @param <T>  .
+     * @return .
      */
     public static <T> CommonResult<T> unauthorized(String message, T data) {
         if (StringUtils.isEmpty(message)) {
             message = ResultCode.UNAUTHORIZED.getMessage();
         }
-        return new CommonResult<T>(ResultCode.UNAUTHORIZED.getCode(), message, data);
+        return new CommonResult<>(ResultCode.UNAUTHORIZED.getCode(), message, data);
     }
 
     /**
      * 未授权返回结果 403
-     * @param data
-     * @param <T>
-     * @return
+     *
+     * @param data .
+     * @param <T>  .
+     * @return .
      */
     public static <T> CommonResult<T> forbidden(T data) {
         return new CommonResult<>(ResultCode.FORBIDDEN.getCode(), ResultCode.FORBIDDEN.getMessage(), data);

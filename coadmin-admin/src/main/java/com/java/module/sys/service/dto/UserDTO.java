@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class UserInfoDTO extends BaseEntity {
+public class UserDTO extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 

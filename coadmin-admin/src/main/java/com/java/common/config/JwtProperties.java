@@ -48,7 +48,7 @@ public class JwtProperties {
 
     /**
      * 令牌前缀 需加空格
-     * @return
+     * @return .
      */
     public String getTokenStartWith() {
         return tokenStartWith + " ";

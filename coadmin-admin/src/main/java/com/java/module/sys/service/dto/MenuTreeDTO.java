@@ -27,12 +27,12 @@ public class MenuTreeDTO extends BaseTreeNode<MenuTreeDTO> {
     /**
      * 权限值
      */
-    private String value;
+    private String permission;
 
     /**
-     * 路径
+     * 组件路径
      */
-    private String url;
+    private String componentUrl;
 
     /**
      * 图标

@@ -19,8 +19,8 @@ public interface SysMenuDao extends BaseMapper<SysMenu> {
     /**
      * 根据角色编号数组查询菜单
      *
-     * @param roleIds
-     * @return
+     * @param roleIds .
+     * @return .
      */
     List<SysMenu> listByRoleIds(Long[] roleIds);
 

@@ -6,7 +6,6 @@ import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -41,7 +40,7 @@ public class TokenProvider implements InitializingBean {
     }
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
         String secretKey = jwtProperties.getSecret();
         this.key = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
     }
@@ -49,21 +48,10 @@ public class TokenProvider implements InitializingBean {
     /**
      * 生成 token
      *
-     * @param authentication
-     * @return
+     * @param userDetails .
+     * @return .
      */
-    public String createToken(Authentication authentication) {
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        return createToken(userDetails);
-    }
-
-    /**
-     * 生成 token
-     *
-     * @param userDetails
-     * @return
-     */
-    public String createToken(UserDetails userDetails) {
+    private String buildToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>(1);
         claims.put(CLAIM_KEY_CREATED, new Date());
         String username = userDetails.getUsername();
@@ -76,9 +64,21 @@ public class TokenProvider implements InitializingBean {
     }
 
     /**
+     * 创建 token (加前缀)
+     *
+     * @param userDetails .
+     * @return .
+     */
+    public String createToken(UserDetails userDetails) {
+        String token = buildToken(userDetails);
+        String tokenStartWith = jwtProperties.getTokenStartWith();
+        return tokenStartWith + token;
+    }
+
+    /**
      * 获取过期时间
      *
-     * @return
+     * @return .
      */
     private Date getExpirationDate() {
         Date now = new Date();
@@ -89,8 +89,8 @@ public class TokenProvider implements InitializingBean {
     /**
      * 验证 token 是否有效
      *
-     * @param authToken
-     * @return
+     * @param authToken .
+     * @return .
      */
     public boolean validateToken(String authToken) {
         try {
@@ -105,8 +105,8 @@ public class TokenProvider implements InitializingBean {
     /**
      * 从 token 中获取用户名
      *
-     * @param authToken
-     * @return
+     * @param authToken .
+     * @return .
      */
     public String getUserNameByToken(String authToken) {
         Jws<Claims> jws = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(authToken);
@@ -116,8 +116,9 @@ public class TokenProvider implements InitializingBean {
 
     /**
      * 从请求中获取 用户名
-     * @param request
-     * @return
+     *
+     * @param request .
+     * @return .
      */
     public String getUserName(HttpServletRequest request) {
         String token = getToken(request);
@@ -127,15 +128,15 @@ public class TokenProvider implements InitializingBean {
     /**
      * 从请求中获取 token
      *
-     * @param request
-     * @return
+     * @param request .
+     * @return .
      */
     public String getToken(HttpServletRequest request) {
         String tokenHeader = jwtProperties.getTokenHeader();
         String tokenStartWith = jwtProperties.getTokenStartWith();
         String authTokenHeader = request.getHeader(tokenHeader);
         if (StringUtils.isNotBlank(authTokenHeader) && authTokenHeader.startsWith(tokenStartWith)) {
-            return authTokenHeader.replace(jwtProperties.getTokenStartWith(),"");
+            return authTokenHeader.replace(jwtProperties.getTokenStartWith(), "");
         }
         return null;
     }
