@@ -44,7 +44,7 @@ public class AuthorizationController {
     @ApiOperation("退出登录")
     @DeleteMapping("/logout")
     public CommonResult<String> logout() {
-        return null;
+        return CommonResult.success("");
     }
 
 }

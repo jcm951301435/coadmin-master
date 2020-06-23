@@ -37,16 +37,13 @@ public class SecurityServiceImpl implements SecurityService {
 
     private final UserMapper userMapper;
 
-    private final SysMenuService menuService;
-
     public SecurityServiceImpl(AuthenticationManager authenticationManager,
                                TokenProvider tokenProvider, PasswordEncoder passwordEncoder,
-                               UserMapper userMapper, SysMenuService menuService) {
+                               UserMapper userMapper) {
         this.authenticationManager = authenticationManager;
         this.tokenProvider = tokenProvider;
         this.passwordEncoder = passwordEncoder;
         this.userMapper = userMapper;
-        this.menuService = menuService;
     }
 
     @Override

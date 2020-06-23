@@ -8,6 +8,7 @@ import com.java.module.sys.dao.SysUserDao;
 import com.java.module.sys.model.SysUser;
 import com.java.module.sys.service.SysUserService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -51,6 +52,7 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
+    @Cacheable(cacheNames = "user", key = "'listAll'")
     public List<SysUser> listAll() {
         return userDao.selectList(null);
     }

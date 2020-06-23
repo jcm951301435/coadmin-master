@@ -41,6 +41,9 @@ public class UserDetailServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         SysUser sysUser = userService.getUserByUserName(username);
+        if (sysUser == null) {
+            throw new UsernameNotFoundException("用户名或密码错误!");
+        }
         List<SysRole> roleList = roleService.listByUserId(sysUser.getId());
         Set<String> permissions = new HashSet<>();
         if (CollectionUtils.isNotEmpty(roleList)) {
