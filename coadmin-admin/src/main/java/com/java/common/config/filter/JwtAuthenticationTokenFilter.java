@@ -2,7 +2,8 @@ package com.java.common.config.filter;
 
 import com.java.common.config.provider.TokenProvider;
 import com.java.common.util.StringUtils;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,8 +23,9 @@ import java.io.IOException;
  * @author: jcm
  * @date: 2020/05/20
  */
-@Slf4j
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(JwtAuthenticationTokenFilter.class);
 
     private final TokenProvider tokenProvider;
 
@@ -40,13 +42,13 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         String requestUri = request.getRequestURI();
         String token = tokenProvider.getToken(request);
         if (StringUtils.isNotBlank(token)) {
-            log.debug("the request has token, before authenticate");
-            String username = tokenProvider.getUserName(request);
+            LOGGER.debug("the request has token, before authenticate");
+            String username = tokenProvider.getUserNameByToken(token);
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
             Authentication authentication =
                     new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
-            log.debug("uri: {} 验证成功，name: {}", requestUri, authentication.getName());
+            LOGGER.debug("uri: {} 验证成功，name: {}", requestUri, authentication.getName());
         }
         filterChain.doFilter(request, response);
     }

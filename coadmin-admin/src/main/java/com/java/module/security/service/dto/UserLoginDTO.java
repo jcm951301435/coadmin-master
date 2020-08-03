@@ -1,18 +1,11 @@
 package com.java.module.security.service.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 /**
  * 登录结果DTO
  *
  * @author: jcm
  * @date: 2020/06/12
  */
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class UserLoginDTO {
 
     /**
@@ -25,4 +18,35 @@ public class UserLoginDTO {
      */
     private String token;
 
+    public UserInfoDTO getUserInfo() {
+        return userInfo;
+    }
+
+    public void setUserInfo(UserInfoDTO userInfo) {
+        this.userInfo = userInfo;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public UserLoginDTO() {
+    }
+
+    public UserLoginDTO(UserInfoDTO userInfo, String token) {
+        this.userInfo = userInfo;
+        this.token = token;
+    }
+
+    @Override
+    public String toString() {
+        return "UserLoginDTO{" +
+                "userInfo=" + userInfo +
+                ", token='" + token + '\'' +
+                '}';
+    }
 }

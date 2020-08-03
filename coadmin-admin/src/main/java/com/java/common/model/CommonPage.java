@@ -1,10 +1,6 @@
 package com.java.common.model;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
@@ -14,15 +10,10 @@ import java.util.List;
  * @author: jcm
  * @date: 2020/05/19
  */
-@Data
-@NoArgsConstructor
-@RequiredArgsConstructor
 public class CommonPage<T> {
 
-    @NonNull
     private Integer pageNum;
 
-    @NonNull
     private Integer pageSize;
 
     private Integer totalPage;
@@ -59,4 +50,52 @@ public class CommonPage<T> {
         return new Page<>(this.pageNum, this.getPageSize());
     }
 
+
+    public Integer getPageNum() {
+        return pageNum;
+    }
+
+    public void setPageNum(Integer pageNum) {
+        this.pageNum = pageNum;
+    }
+
+    public Integer getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public Integer getTotalPage() {
+        return totalPage;
+    }
+
+    public void setTotalPage(Integer totalPage) {
+        this.totalPage = totalPage;
+    }
+
+    public Long getTotal() {
+        return total;
+    }
+
+    public void setTotal(Long total) {
+        this.total = total;
+    }
+
+    public List<T> getList() {
+        return list;
+    }
+
+    public void setList(List<T> list) {
+        this.list = list;
+    }
+
+    public CommonPage() {
+    }
+
+    public CommonPage(Integer pageNum, Integer pageSize) {
+        this.pageNum = pageNum;
+        this.pageSize = pageSize;
+    }
 }

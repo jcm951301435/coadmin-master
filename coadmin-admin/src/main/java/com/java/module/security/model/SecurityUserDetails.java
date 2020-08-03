@@ -19,9 +19,6 @@ import java.util.stream.Collectors;
  * @author: jcm
  * @date: 2020/05/24
  */
-@Getter
-@AllArgsConstructor
-@ToString
 public class SecurityUserDetails implements UserDetails {
 
     private static final long serialVersionUID = 1L;
@@ -68,4 +65,24 @@ public class SecurityUserDetails implements UserDetails {
         return enable != null && enable;
     }
 
+    public SysUser getSysUser() {
+        return sysUser;
+    }
+
+    public Set<String> getPermissions() {
+        return permissions;
+    }
+
+    public SecurityUserDetails(SysUser sysUser, Set<String> permissions) {
+        this.sysUser = sysUser;
+        this.permissions = permissions;
+    }
+
+    @Override
+    public String toString() {
+        return "SecurityUserDetails{" +
+                "sysUser=" + sysUser +
+                ", permissions=" + permissions +
+                '}';
+    }
 }

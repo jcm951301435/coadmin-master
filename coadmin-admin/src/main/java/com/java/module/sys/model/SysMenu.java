@@ -1,8 +1,6 @@
 package com.java.module.sys.model;
 
 import com.java.common.model.BaseEntity;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 /**
  * sys_menu 权限
@@ -10,8 +8,6 @@ import lombok.EqualsAndHashCode;
  * @author: jcm
  * @date: 2020/05/08
  */
-@Data
-@EqualsAndHashCode(callSuper = true)
 public class SysMenu extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
@@ -61,4 +57,77 @@ public class SysMenu extends BaseEntity {
      */
     private Long sort;
 
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public String getPermission() {
+        return permission;
+    }
+
+    public void setPermission(String permission) {
+        this.permission = permission;
+    }
+
+    public String getComponentUrl() {
+        return componentUrl;
+    }
+
+    public void setComponentUrl(String componentUrl) {
+        this.componentUrl = componentUrl;
+    }
+
+    public Long getPid() {
+        return pid;
+    }
+
+    public void setPid(Long pid) {
+        this.pid = pid;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
+    public Boolean getHidden() {
+        return hidden;
+    }
+
+    public void setHidden(Boolean hidden) {
+        this.hidden = hidden;
+    }
+
+    public Long getSort() {
+        return sort;
+    }
+
+    public void setSort(Long sort) {
+        this.sort = sort;
+    }
 }

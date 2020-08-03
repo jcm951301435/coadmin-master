@@ -3,6 +3,8 @@ package com.java.common.exception.handler;
 import com.java.common.exception.DuplicateEntityException;
 import com.java.common.model.CommonResult;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -15,9 +17,10 @@ import java.sql.SQLException;
  * @author: jcm
  * @date: 2020/05/28
  */
-@Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     /**
      * 重复实体
@@ -27,7 +30,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(value = DuplicateEntityException.class)
     public CommonResult<String> duplicateEntityException(DuplicateEntityException e) {
-        log.error("数据库已存在此记录", e);
+        LOGGER.error("数据库已存在此记录", e);
         return CommonResult.failure(e.getMessage());
     }
 
@@ -38,7 +41,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(value = SQLException.class)
     public CommonResult<String> sqlException(SQLException e) {
-        log.error("数据库异常", e);
+        LOGGER.error("数据库异常", e);
         return CommonResult.failure("系统异常，请联系管理员");
     }
 
@@ -49,7 +52,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(value = BadCredentialsException.class)
     public CommonResult<String> badCredentialsException(BadCredentialsException e) {
-        log.error("认证异常", e);
+        LOGGER.error("认证异常", e);
         return CommonResult.failure("用户名或密码错误");
     }
 

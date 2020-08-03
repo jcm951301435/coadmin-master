@@ -52,7 +52,7 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    @Cacheable(cacheNames = "user", key = "'listAll'")
+    @Cacheable(cacheNames = "user")
     public List<SysUser> listAll() {
         return userDao.selectList(null);
     }

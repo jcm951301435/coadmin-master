@@ -1,7 +1,8 @@
 package com.java.common.config;
 
 import com.java.common.util.JsonUtils;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.interceptor.KeyGenerator;
@@ -22,10 +23,11 @@ import java.util.Map;
  * @author: jcm
  * @date: 2020/06/22
  */
-@Slf4j
 @Configuration
 @EnableCaching
 public class RedisConfig extends CachingConfigurerSupport {
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(RedisConfig.class);
 
     @Bean
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {

@@ -4,7 +4,8 @@ import com.java.common.config.filter.JwtAuthenticationTokenFilter;
 import com.java.common.config.handler.ResultAccessDeniedHandler;
 import com.java.common.config.handler.ResultAuthenticationEntryPoint;
 import com.java.common.config.provider.TokenProvider;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -29,11 +30,12 @@ import org.springframework.web.filter.CorsFilter;
  * @author: jcm
  * @date: 2020/05/17
  */
-@Slf4j
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(SecurityConfig.class);
 
     private final ResultAccessDeniedHandler accessDeniedHandler;
 

@@ -1,8 +1,6 @@
 package com.java.module.sys.model;
 
 import com.java.common.model.BaseEntity;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 /**
  * sys_user 用户实体
@@ -10,8 +8,6 @@ import lombok.EqualsAndHashCode;
  * @author: jcm
  * @date: 2020/05/08
  */
-@Data
-@EqualsAndHashCode(callSuper = true)
 public class SysUser extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
@@ -51,4 +47,59 @@ public class SysUser extends BaseEntity {
      */
     private Boolean enabled;
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Long getAvatarId() {
+        return avatarId;
+    }
+
+    public void setAvatarId(Long avatarId) {
+        this.avatarId = avatarId;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
+    public String getMobilePhone() {
+        return mobilePhone;
+    }
+
+    public void setMobilePhone(String mobilePhone) {
+        this.mobilePhone = mobilePhone;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
 }

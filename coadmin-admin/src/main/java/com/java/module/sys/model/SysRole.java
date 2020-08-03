@@ -1,8 +1,6 @@
 package com.java.module.sys.model;
 
 import com.java.common.model.BaseEntity;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 /**
  * sys_role 角色
@@ -10,8 +8,6 @@ import lombok.EqualsAndHashCode;
  * @author: jcm
  * @date: 2020/05/08
  */
-@Data
-@EqualsAndHashCode(callSuper = true)
 public class SysRole extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
@@ -36,4 +32,35 @@ public class SysRole extends BaseEntity {
      */
     private String remark;
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getScopeType() {
+        return scopeType;
+    }
+
+    public void setScopeType(Integer scopeType) {
+        this.scopeType = scopeType;
+    }
+
+    public String getPermission() {
+        return permission;
+    }
+
+    public void setPermission(String permission) {
+        this.permission = permission;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
 }

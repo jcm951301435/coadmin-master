@@ -1,6 +1,5 @@
 package com.java.common.config;
 
-import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
@@ -11,7 +10,6 @@ import org.springframework.context.annotation.Configuration;
  * @author: jcm
  * @date: 2020/05/20
  */
-@Data
 @Configuration
 @ConfigurationProperties(prefix = "jwt")
 public class JwtProperties {
@@ -54,4 +52,47 @@ public class JwtProperties {
         return tokenStartWith + " ";
     }
 
+    public String getTokenHeader() {
+        return tokenHeader;
+    }
+
+    public void setTokenHeader(String tokenHeader) {
+        this.tokenHeader = tokenHeader;
+    }
+
+    public String getSecret() {
+        return secret;
+    }
+
+    public void setSecret(String secret) {
+        this.secret = secret;
+    }
+
+    public Long getExpiration() {
+        return expiration;
+    }
+
+    public void setExpiration(Long expiration) {
+        this.expiration = expiration;
+    }
+
+    public void setTokenStartWith(String tokenStartWith) {
+        this.tokenStartWith = tokenStartWith;
+    }
+
+    public String getVerifyCodeKey() {
+        return verifyCodeKey;
+    }
+
+    public void setVerifyCodeKey(String verifyCodeKey) {
+        this.verifyCodeKey = verifyCodeKey;
+    }
+
+    public String getOnlineKey() {
+        return onlineKey;
+    }
+
+    public void setOnlineKey(String onlineKey) {
+        this.onlineKey = onlineKey;
+    }
 }

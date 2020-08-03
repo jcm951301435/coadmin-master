@@ -4,7 +4,8 @@ import com.java.common.config.JwtProperties;
 import com.java.common.util.StringUtils;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -22,9 +23,10 @@ import java.util.Map;
  * @author: jcm
  * @date: 2020/05/20
  */
-@Slf4j
 @Component
 public class TokenProvider implements InitializingBean {
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(TokenProvider.class);
 
     private final JwtProperties jwtProperties;
 
@@ -97,7 +99,7 @@ public class TokenProvider implements InitializingBean {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(authToken);
             return true;
         } catch (JwtException e) {
-            log.error("token 验证失败", e);
+            LOGGER.error("token 验证失败", e);
         }
         return false;
     }
@@ -109,9 +111,15 @@ public class TokenProvider implements InitializingBean {
      * @return .
      */
     public String getUserNameByToken(String authToken) {
-        Jws<Claims> jws = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(authToken);
-        Claims claims = jws.getBody();
-        return claims.getSubject();
+        String username = "";
+        try {
+            Jws<Claims> jws = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(authToken);
+            Claims claims = jws.getBody();
+            username = claims.getSubject();
+        } catch (Exception e) {
+            LOGGER.error("token 验证失败", e);
+        }
+        return username;
     }
 
     /**

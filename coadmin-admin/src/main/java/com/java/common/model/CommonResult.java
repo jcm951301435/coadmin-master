@@ -1,8 +1,6 @@
 package com.java.common.model;
 
 import com.java.common.util.StringUtils;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 
 /**
  * 基础返回信息类
@@ -10,8 +8,6 @@ import lombok.Data;
  * @author: jcm
  * @date: 2020/05/19
  */
-@Data
-@AllArgsConstructor
 public class CommonResult<T> {
 
     private int code;
@@ -94,4 +90,33 @@ public class CommonResult<T> {
         return new CommonResult<>(ResultCode.FORBIDDEN.getCode(), ResultCode.FORBIDDEN.getMessage(), data);
     }
 
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public T getData() {
+        return data;
+    }
+
+    public void setData(T data) {
+        this.data = data;
+    }
+
+    public CommonResult(int code, String message, T data) {
+        this.code = code;
+        this.message = message;
+        this.data = data;
+    }
 }

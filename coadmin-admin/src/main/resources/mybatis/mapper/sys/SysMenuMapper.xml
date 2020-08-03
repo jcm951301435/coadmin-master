@@ -5,8 +5,8 @@
         <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
         <result column="type" jdbcType="INTEGER" property="type"/>
-        <result column="value" jdbcType="VARCHAR" property="value"/>
-        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="permission" jdbcType="VARCHAR" property="permission"/>
+        <result column="component_url" jdbcType="VARCHAR" property="componentUrl"/>
         <result column="pid" jdbcType="BIGINT" property="pid"/>
         <result column="icon" jdbcType="VARCHAR" property="icon"/>
         <result column="hidden" jdbcType="BIT" property="hidden"/>
@@ -18,7 +18,7 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        `id`,`name`,`type`,`value`,`url`,`pid`,`icon`,`hidden`,`sort`,
+        `id`,`name`,`type`,`permission`,`component_url`,`pid`,`icon`,`hidden`,`sort`,
         `create_time`,`create_by`,`update_time`,`update_by`
     </sql>
 
