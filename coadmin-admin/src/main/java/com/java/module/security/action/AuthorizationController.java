@@ -3,7 +3,6 @@ package com.java.module.security.action;
 import com.java.common.model.CommonResult;
 import com.java.module.security.service.SecurityService;
 import com.java.module.security.service.dto.LoginParamsDTO;
-import com.java.module.security.service.dto.RefreshTokenDTO;
 import com.java.module.security.service.dto.UserInfoDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
