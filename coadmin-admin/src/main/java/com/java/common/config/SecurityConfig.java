@@ -1,6 +1,5 @@
 package com.java.common.config;
 
-import com.java.common.config.filter.JwtAuthenticationTokenFilter;
 import com.java.common.config.handler.ResultAccessDeniedHandler;
 import com.java.common.config.handler.ResultAuthenticationEntryPoint;
 import com.java.common.config.provider.TokenProvider;
@@ -15,7 +14,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -84,10 +82,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/sys/user/create").permitAll()
                 .anyRequest().authenticated();
         // 配置拦截器顺序
-        httpSecurity.addFilterBefore(jwtAuthenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+        /*httpSecurity.addFilterBefore(jwtAuthenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);*/
         // 禁用session
-        httpSecurity.sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        /*httpSecurity.sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);*/
         // 防止iframe 造成跨域
         httpSecurity.headers()
                 .frameOptions()
@@ -121,9 +119,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new CorsFilter(source);
     }
 
-    @Bean
+    /*@Bean
     public JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter() {
         return new JwtAuthenticationTokenFilter(tokenProvider, userDetailsService);
-    }
+    }*/
 
 }

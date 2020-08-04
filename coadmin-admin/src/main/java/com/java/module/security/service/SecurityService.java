@@ -2,7 +2,6 @@ package com.java.module.security.service;
 
 import com.java.module.security.service.dto.LoginParamsDTO;
 import com.java.module.security.service.dto.UserInfoDTO;
-import com.java.module.security.service.dto.UserLoginDTO;
 
 /**
  * 认证业务接口
@@ -18,7 +17,7 @@ public interface SecurityService {
      * @param loginParamsDTO .
      * @return .
      */
-    UserLoginDTO login(LoginParamsDTO loginParamsDTO);
+    UserInfoDTO login(LoginParamsDTO loginParamsDTO);
 
     /**
      * 密码加密

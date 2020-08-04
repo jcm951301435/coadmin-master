@@ -7,7 +7,6 @@ import com.java.common.model.CommonPage;
 import com.java.module.sys.dao.SysUserDao;
 import com.java.module.sys.model.SysUser;
 import com.java.module.sys.service.SysUserService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +21,6 @@ import java.util.List;
  */
 @Service
 @Transactional(readOnly = true, rollbackFor = Exception.class)
-@Slf4j
 public class SysUserServiceImpl implements SysUserService {
 
     private final SysUserDao userDao;

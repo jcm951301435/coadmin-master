@@ -2,7 +2,6 @@ package com.java.common.exception.handler;
 
 import com.java.common.exception.DuplicateEntityException;
 import com.java.common.model.CommonResult;
-import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.BadCredentialsException;

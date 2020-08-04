@@ -3,8 +3,8 @@ package com.java.module.security.action;
 import com.java.common.model.CommonResult;
 import com.java.module.security.service.SecurityService;
 import com.java.module.security.service.dto.LoginParamsDTO;
+import com.java.module.security.service.dto.RefreshTokenDTO;
 import com.java.module.security.service.dto.UserInfoDTO;
-import com.java.module.security.service.dto.UserLoginDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.annotation.Validated;
@@ -29,9 +29,9 @@ public class AuthorizationController {
 
     @ApiOperation("登录授权")
     @PostMapping("/login")
-    public CommonResult<UserLoginDTO> login(@Validated @RequestBody LoginParamsDTO loginParamsDTO) {
-        UserLoginDTO userLoginDTO = securityService.login(loginParamsDTO);
-        return CommonResult.success(userLoginDTO);
+    public CommonResult<UserInfoDTO> login(@Validated @RequestBody LoginParamsDTO loginParamsDTO) {
+        UserInfoDTO userInfoDTO = securityService.login(loginParamsDTO);
+        return CommonResult.success(userInfoDTO);
     }
 
     @ApiOperation("获取权限")

@@ -12,7 +12,7 @@ jwt:
   tokenHeader: Authorization #JWT存储的请求头
   secret: MvX03Em8Ezoqu10SKvrw4CJ9UZsVEW88MvX03Em8Ezoqu10SKvrw4CJ9UZsVEW88 #JWT加解密使用的密钥
 #  expiration: 14400 #JWT的超期限时间(60*60*4)
-  expiration: 30 #JWT的超期限时间(60*60*4)
+  expiration: 60 #JWT的超期限时间(60*60*4)
   tokenStartWith: Bearer #JWT负载中拿到开头
   verifyCodeKey: verify-code #验证码缓存头
   onlineKey: online-key #在线人员缓存头

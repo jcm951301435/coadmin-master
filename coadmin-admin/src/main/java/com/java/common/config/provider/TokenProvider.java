@@ -1,6 +1,7 @@
 package com.java.common.config.provider;
 
 import com.java.common.config.JwtProperties;
+import com.java.common.util.RedisUtils;
 import com.java.common.util.StringUtils;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
@@ -30,6 +31,8 @@ public class TokenProvider implements InitializingBean {
 
     private final JwtProperties jwtProperties;
 
+    private final RedisUtils redisUtils;
+
     private Key key;
 
     /**
@@ -37,8 +40,9 @@ public class TokenProvider implements InitializingBean {
      */
     private final String CLAIM_KEY_CREATED = "createTime";
 
-    public TokenProvider(JwtProperties jwtProperties) {
+    public TokenProvider(JwtProperties jwtProperties, RedisUtils redisUtils) {
         this.jwtProperties = jwtProperties;
+        this.redisUtils = redisUtils;
     }
 
     @Override
@@ -75,6 +79,14 @@ public class TokenProvider implements InitializingBean {
         String token = buildToken(userDetails);
         String tokenStartWith = jwtProperties.getTokenStartWith();
         return tokenStartWith + token;
+    }
+
+    public String refreshToken(String token) {
+        String onlineKey = jwtProperties.getOnlineKey();
+        String redisKey = onlineKey + token;
+        long milliSeconds = redisUtils.getExpire(redisKey) * 1000;
+//        DateUtil.offset(new Date(), DateField.MILLISECOND, milliSeconds);
+        return null;
     }
 
     /**
@@ -117,7 +129,7 @@ public class TokenProvider implements InitializingBean {
             Claims claims = jws.getBody();
             username = claims.getSubject();
         } catch (Exception e) {
-            LOGGER.error("token 验证失败", e);
+            LOGGER.error("token 过期", e);
         }
         return username;
     }

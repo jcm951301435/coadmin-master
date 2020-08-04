@@ -6,9 +6,7 @@ import com.java.module.security.model.SecurityUserDetails;
 import com.java.module.security.service.SecurityService;
 import com.java.module.security.service.dto.LoginParamsDTO;
 import com.java.module.security.service.dto.UserInfoDTO;
-import com.java.module.security.service.dto.UserLoginDTO;
 import com.java.module.sys.model.SysUser;
-import com.java.module.sys.service.SysMenuService;
 import com.java.module.sys.service.dto.UserDTO;
 import com.java.module.sys.service.mapper.UserMapper;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -47,15 +45,12 @@ public class SecurityServiceImpl implements SecurityService {
     }
 
     @Override
-    public UserLoginDTO login(LoginParamsDTO loginParamsDTO) {
+    public UserInfoDTO login(LoginParamsDTO loginParamsDTO) {
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                 loginParamsDTO.getUsername(), loginParamsDTO.getPassword());
         Authentication authentication = authenticationManager.authenticate(authenticationToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        SecurityUserDetails securityUserDetails = (SecurityUserDetails) authentication.getPrincipal();
-        UserInfoDTO userInfoDTO = getUserInfoFromAuth(authentication);
-        String token = tokenProvider.createToken(securityUserDetails);
-        return new UserLoginDTO(userInfoDTO, token);
+        return getUserInfoFromAuth(authentication);
     }
 
     @Override
