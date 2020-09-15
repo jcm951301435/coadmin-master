@@ -1,14 +1,14 @@
 package com.java.module.security.service.impl;
 
-import com.java.common.config.provider.TokenProvider;
-import com.java.common.util.SecurityUtils;
 import com.java.module.security.model.SecurityUserDetails;
 import com.java.module.security.service.SecurityService;
 import com.java.module.security.service.dto.LoginParamsDTO;
 import com.java.module.security.service.dto.UserInfoDTO;
 import com.java.module.sys.model.SysUser;
 import com.java.module.sys.service.dto.UserDTO;
-import com.java.module.sys.service.mapper.UserMapper;
+import com.java.module.sys.mapper.UserMapper;
+import com.java.provider.TokenProvider;
+import com.java.util.SecurityUtils;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -66,6 +66,7 @@ public class SecurityServiceImpl implements SecurityService {
 
     /**
      * 从认证信息中获取 UserInfo
+     *
      * @param authentication .
      * @return .
      */
@@ -73,7 +74,7 @@ public class SecurityServiceImpl implements SecurityService {
         SecurityUserDetails securityUserDetails = (SecurityUserDetails) authentication.getPrincipal();
         SysUser sysUser = securityUserDetails.getSysUser();
         Set<String> permissions = securityUserDetails.getPermissions();
-        UserDTO userDTO = userMapper.toDto(sysUser);
+        UserDTO userDTO = userMapper.toUserDTO(sysUser);
         return new UserInfoDTO(userDTO, permissions);
     }
 

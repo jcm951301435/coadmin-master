@@ -1,6 +1,11 @@
 package com.java.module.sys.model;
 
-import com.java.common.model.BaseEntity;
+
+import com.java.model.BaseEntity;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 
 /**
  * sys_menu 权限
@@ -8,6 +13,7 @@ import com.java.common.model.BaseEntity;
  * @author: jcm
  * @date: 2020/05/08
  */
+
 public class SysMenu extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
@@ -15,10 +21,18 @@ public class SysMenu extends BaseEntity {
     /**
      * 主键
      */
+    @NotNull(groups = Update.class, message = "id 不能为空")
+    @Null(groups = Create.class, message = "id 必须为空")
     private Long id;
 
     /**
-     * 权限名
+     * 标题
+     */
+    @NotBlank(groups = Create.class, message = "菜单标题不能为空")
+    private String title;
+
+    /**
+     * 组件名称
      */
     private String name;
 
@@ -26,6 +40,11 @@ public class SysMenu extends BaseEntity {
      * 类型
      */
     private Integer type;
+
+    /**
+     * 路由路径
+     */
+    private String path;
 
     /**
      * 权限值
@@ -40,6 +59,7 @@ public class SysMenu extends BaseEntity {
     /**
      * 父级主键
      */
+    @NotNull(groups = Update.class, message = "上级菜单不能为空")
     private Long pid;
 
     /**
@@ -81,6 +101,22 @@ public class SysMenu extends BaseEntity {
 
     public void setType(Integer type) {
         this.type = type;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
     }
 
     public String getPermission() {
@@ -129,5 +165,22 @@ public class SysMenu extends BaseEntity {
 
     public void setSort(Long sort) {
         this.sort = sort;
+    }
+
+    @Override
+    public String toString() {
+        return "SysMenu{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", type=" + type +
+                ", title='" + title + '\'' +
+                ", path='" + path + '\'' +
+                ", permission='" + permission + '\'' +
+                ", componentUrl='" + componentUrl + '\'' +
+                ", pid=" + pid +
+                ", icon='" + icon + '\'' +
+                ", hidden=" + hidden +
+                ", sort=" + sort +
+                '}';
     }
 }

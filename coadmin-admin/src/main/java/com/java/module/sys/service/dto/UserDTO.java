@@ -1,6 +1,7 @@
 package com.java.module.sys.service.dto;
 
-import com.java.common.model.BaseEntity;
+
+import com.java.model.BaseEntity;
 
 /**
  * 用户信息类

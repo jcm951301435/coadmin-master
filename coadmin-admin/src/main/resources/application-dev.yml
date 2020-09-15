@@ -37,7 +37,7 @@ mybatis-plus:
 logging:
   file:
     path: /var/logs #配置日志生成路径
-  level:
-    org:
-      springframework:
-        security: debug
+#  level:
+#    org:
+#      springframework:
+#        security: debug

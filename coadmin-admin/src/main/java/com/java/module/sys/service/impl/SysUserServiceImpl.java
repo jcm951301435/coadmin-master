@@ -2,8 +2,8 @@ package com.java.module.sys.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.java.common.exception.DuplicateEntityException;
-import com.java.common.model.CommonPage;
+import com.java.exception.DuplicateEntityException;
+import com.java.model.CommonPage;
 import com.java.module.sys.dao.SysUserDao;
 import com.java.module.sys.model.SysUser;
 import com.java.module.sys.service.SysUserService;

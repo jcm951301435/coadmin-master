@@ -1,6 +1,6 @@
 package com.java.module.sys.service;
 
-import com.java.common.model.CommonPage;
+import com.java.model.CommonPage;
 import com.java.module.sys.model.SysUser;
 
 import java.util.List;

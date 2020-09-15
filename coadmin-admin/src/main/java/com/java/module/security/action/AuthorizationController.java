@@ -1,11 +1,12 @@
 package com.java.module.security.action;
 
-import com.java.common.model.CommonResult;
+import com.java.model.CommonResult;
 import com.java.module.security.service.SecurityService;
 import com.java.module.security.service.dto.LoginParamsDTO;
 import com.java.module.security.service.dto.UserInfoDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,7 +44,8 @@ public class AuthorizationController {
     @ApiOperation("退出登录")
     @DeleteMapping("/logout")
     public CommonResult<String> logout() {
-        return CommonResult.success("");
+        SecurityContextHolder.clearContext();
+        return CommonResult.success("安全退出成功");
     }
 
 }

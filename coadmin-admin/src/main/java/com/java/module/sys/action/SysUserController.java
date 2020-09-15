@@ -1,8 +1,8 @@
 package com.java.module.sys.action;
 
-import com.java.common.model.CommonResult;
-import com.java.module.sys.model.SysUser;
+import com.java.model.CommonResult;
 import com.java.module.security.service.SecurityService;
+import com.java.module.sys.model.SysUser;
 import com.java.module.sys.service.SysUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

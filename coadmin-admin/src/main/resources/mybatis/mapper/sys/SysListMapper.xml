@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.java.module.sys.dao.SysListDao">
+
+    <resultMap id="ExportResultMap" type="com.java.module.sys.action.vo.ListExportVO">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+        <result column="value" jdbcType="VARCHAR" property="value"/>
+        <result column="item_id" jdbcType="BIGINT" property="itemId"/>
+        <result column="item_type" jdbcType="VARCHAR" property="itemType"/>
+        <result column="item_value" jdbcType="VARCHAR" property="itemValue"/>
+    </resultMap>
+
+    <select id="listExport" resultMap="ExportResultMap">
+        SELECT l.id, l.type, l.value,
+        i.id as item_id, i.type as item_type, i.value as item_value
+        FROM sys_list l
+        LEFT JOIN sys_list_item i ON l.id = i.list_id
+        <if test="params.blurry != null">
+            WHERE (
+            l.type LIKE concat('%', #{params.blurry}, '%')
+            OR l.value LIKE concat('%', #{params.blurry}, '%')
+            )
+        </if>
+    </select>
+
+</mapper>

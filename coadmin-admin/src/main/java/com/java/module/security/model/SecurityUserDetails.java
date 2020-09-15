@@ -24,6 +24,8 @@ public class SecurityUserDetails implements UserDetails {
 
     private final Set<String> permissions;
 
+    private boolean belongAdmin;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return permissions.stream()
@@ -70,9 +72,18 @@ public class SecurityUserDetails implements UserDetails {
         return permissions;
     }
 
-    public SecurityUserDetails(SysUser sysUser, Set<String> permissions) {
+    public boolean isBelongAdmin() {
+        return belongAdmin;
+    }
+
+    public void setBelongAdmin(boolean belongAdmin) {
+        this.belongAdmin = belongAdmin;
+    }
+
+    public SecurityUserDetails(SysUser sysUser, Set<String> permissions, boolean belongAdmin) {
         this.sysUser = sysUser;
         this.permissions = permissions;
+        this.belongAdmin = belongAdmin;
     }
 
     @Override

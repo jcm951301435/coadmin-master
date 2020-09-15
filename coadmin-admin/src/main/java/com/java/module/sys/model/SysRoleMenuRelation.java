@@ -1,6 +1,7 @@
 package com.java.module.sys.model;
 
-import com.java.common.model.BaseEntity;
+
+import com.java.model.BaseEntity;
 
 /**
  * sys_role_menu_relation 角色-权限关系
