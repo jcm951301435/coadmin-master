@@ -1,12 +1,10 @@
 package com.java.module.sys.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.java.module.sys.dao.SysListItemDao;
+import com.java.module.sys.dao.SysListItemRepository;
 import com.java.module.sys.model.SysListItem;
 import com.java.module.sys.service.SysListItemService;
+import com.java.util.CollectionUtils;
 import com.java.util.StringUtils;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,18 +18,17 @@ import java.util.List;
 @Transactional(readOnly = true, rollbackFor = Exception.class)
 public class SysListItemServiceImpl implements SysListItemService {
 
-    private final SysListItemDao itemDao;
+    private final SysListItemRepository itemRepository;
 
-    public SysListItemServiceImpl(SysListItemDao itemDao) {
-        this.itemDao = itemDao;
+    public SysListItemServiceImpl(SysListItemRepository itemRepository) {
+        this.itemRepository = itemRepository;
     }
 
     @Override
-    @Cacheable(value = "SysListItemList", key = "#listId")
     public List<SysListItem> findListByListId(Long listId) {
-        QueryWrapper<SysListItem> itemWrapper = new QueryWrapper<>();
-        itemWrapper.eq("list_id", listId);
-        return itemDao.selectList(itemWrapper);
+//        QueryWrapper<SysListItem> itemWrapper = new QueryWrapper<>();
+//        itemWrapper.eq("list_id", listId);
+        return itemRepository.findAll();
     }
 
     @Override
@@ -44,6 +41,17 @@ public class SysListItemServiceImpl implements SysListItemService {
         return getTypeOrValue(value, itemList, false);
     }
 
+    @Override
+    public int countByListIds(List<Long> listIds) {
+        if (CollectionUtils.isEmpty(listIds)) {
+            return 0;
+        }
+//        QueryWrapper<SysListItem> itemWrapper = new QueryWrapper<>();
+//        itemWrapper.in("list_id", listIds);
+//        return itemDao.selectCount(itemWrapper);
+        return (int)itemRepository.count();
+    }
+
     /**
      *
      * @param str type/value
@@ -52,7 +60,7 @@ public class SysListItemServiceImpl implements SysListItemService {
      * @return value/type
      */
     private String getTypeOrValue(String str, List<SysListItem> itemList, boolean useType) {
-        if (StringUtils.isEmpty(str)) {
+        if (StringUtils.isEmpty(str) || CollectionUtils.isEmpty(itemList)) {
             return null;
         }
         String result = null;
@@ -69,23 +77,22 @@ public class SysListItemServiceImpl implements SysListItemService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    @CacheEvict(value = "SysListItemList", key = "#sysListItem.listId", condition = "#result > 0")
     public int create(SysListItem sysListItem) {
-        return itemDao.insert(sysListItem);
+        itemRepository.save(sysListItem);
+        return 0;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    @CacheEvict(value = "SysListItemList", key = "#sysListItem.listId", condition = "#result > 0")
     public int update(SysListItem sysListItem) {
-        return itemDao.updateById(sysListItem);
+        itemRepository.save(sysListItem);
+        return 0;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    @CacheEvict(value = "SysListItemList", allEntries = true, condition = "#result > 0")
     public int delete(List<Long> ids) {
-        return itemDao.deleteBatchIds(ids);
+        return itemRepository.deleteByIdIn(ids);
     }
 
 }

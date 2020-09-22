@@ -24,8 +24,8 @@ public interface SysDepartService {
 
     /**
      * 排序树菜单
-     * @param params
-     * @return
+     * @param params .
+     * @return .
      */
     List<DepartTreeDTO> treeListSort(DepartQueryParamsDTO params);
 
@@ -33,24 +33,21 @@ public interface SysDepartService {
      * 添加部门
      *
      * @param sysDepart .
-     * @return .
      */
-    int create(SysDepart sysDepart);
+    void create(SysDepart sysDepart);
 
     /**
      * 修改部门
      *
      * @param sysDepart .
-     * @return .
      */
-    int update(SysDepart sysDepart);
+    void update(SysDepart sysDepart);
 
     /**
      * 删除部门
      *
      * @param ids .
-     * @return .
      */
-    int delete(List<Long> ids);
+    void delete(List<Long> ids);
 
 }

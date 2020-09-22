@@ -1,9 +1,6 @@
 package com.java.module.sys.service;
 
-import com.java.model.CommonPage;
 import com.java.module.sys.model.SysUser;
-
-import java.util.List;
 
 
 /**
@@ -28,21 +25,6 @@ public interface SysUserService {
      * @param user .
      * @return .
      */
-    int add(SysUser user);
-
-    /**
-     * 查询所有数据
-     *
-     * @return .
-     */
-    List<SysUser> listAll();
-
-    /**
-     * 分页查询所有数据
-     *
-     * @param page .
-     * @return .
-     */
-    CommonPage<SysUser> listAll(CommonPage<SysUser> page);
+    SysUser add(SysUser user);
 
 }

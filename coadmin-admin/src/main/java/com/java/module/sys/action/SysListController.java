@@ -33,15 +33,16 @@ public class SysListController {
         this.listService = listService;
     }
 
-    @ApiOperation("菜单列表")
+    @ApiOperation("列选列表")
     @GetMapping
     @PreAuthorize("hasAnyAuthority('admin', 'sys:list:list')")
-    public CommonResult<CommonPage<SysList>> list(ListQueryParamsDTO params, @Validated CommonPage<SysList> commonPage) {
+    public CommonResult<CommonPage<SysList>> list(ListQueryParamsDTO params,
+                                                  @Validated CommonPage<SysList> commonPage) {
         CommonPage<SysList> sysLists = listService.page(params, commonPage);
         return CommonResult.success(sysLists);
     }
 
-    @ApiOperation("导出菜单")
+    @ApiOperation("导出列选")
     @GetMapping(value = "/export")
     @PreAuthorize("hasAnyAuthority('admin', 'sys:list:list')")
     public void export(ListQueryParamsDTO params, HttpServletResponse response) {
@@ -49,7 +50,7 @@ public class SysListController {
         ExcelUtils.downLoad(sysLists, ListExportVO.class, response);
     }
 
-    @ApiOperation("添加菜单")
+    @ApiOperation("添加列选")
     @PostMapping
     @PreAuthorize("hasAnyAuthority('admin', 'sys:list:add')")
     public CommonResult<String> create(@Validated(SysList.Create.class) @RequestBody SysList sysList) {
@@ -60,7 +61,7 @@ public class SysListController {
         return CommonResult.failure("添加失败");
     }
 
-    @ApiOperation("修改菜单")
+    @ApiOperation("修改列选")
     @PutMapping
     @PreAuthorize("hasAnyAuthority('admin', 'sys:list:update')")
     public CommonResult<String> update(@Validated(SysList.Update.class) @RequestBody SysList sysList) {
@@ -71,7 +72,7 @@ public class SysListController {
         return CommonResult.failure("修改失败");
     }
 
-    @ApiOperation("删除菜单")
+    @ApiOperation("删除列选")
     @DeleteMapping
     @PreAuthorize("hasAnyAuthority('admin', 'sys:list:delete')")
     public CommonResult<String> delete(@RequestBody List<Long> ids) {

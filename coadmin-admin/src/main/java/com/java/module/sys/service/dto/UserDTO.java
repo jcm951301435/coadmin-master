@@ -2,6 +2,8 @@ package com.java.module.sys.service.dto;
 
 
 import com.java.model.BaseEntity;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * 用户信息类
@@ -9,6 +11,8 @@ import com.java.model.BaseEntity;
  * @author: jcm
  * @date: 2020/05/28
  */
+@Data
+@EqualsAndHashCode(callSuper = true)
 public class UserDTO extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
@@ -43,63 +47,4 @@ public class UserDTO extends BaseEntity {
      */
     private Boolean enabled;
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public Long getAvatarId() {
-        return avatarId;
-    }
-
-    public void setAvatarId(Long avatarId) {
-        this.avatarId = avatarId;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getNickName() {
-        return nickName;
-    }
-
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
-    }
-
-    public String getMobilePhone() {
-        return mobilePhone;
-    }
-
-    public void setMobilePhone(String mobilePhone) {
-        this.mobilePhone = mobilePhone;
-    }
-
-    public Boolean getEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(Boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    @Override
-    public String toString() {
-        return "UserDTO{" +
-                "username='" + username + '\'' +
-                ", avatarId=" + avatarId +
-                ", email='" + email + '\'' +
-                ", nickName='" + nickName + '\'' +
-                ", mobilePhone='" + mobilePhone + '\'' +
-                ", enabled=" + enabled +
-                '}';
-    }
 }

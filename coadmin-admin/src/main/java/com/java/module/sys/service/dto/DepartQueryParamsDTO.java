@@ -1,6 +1,7 @@
 package com.java.module.sys.service.dto;
 
-import java.util.Arrays;
+import lombok.Data;
+
 import java.util.Date;
 
 /**
@@ -8,6 +9,7 @@ import java.util.Date;
  * @author: jcm
  * @date: 2020/09/15
  */
+@Data
 public class DepartQueryParamsDTO {
 
     /**
@@ -20,27 +22,4 @@ public class DepartQueryParamsDTO {
      */
     private Date[] createTime;
 
-    public String getBlurry() {
-        return blurry;
-    }
-
-    public void setBlurry(String blurry) {
-        this.blurry = blurry;
-    }
-
-    public Date[] getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date[] createTime) {
-        this.createTime = createTime;
-    }
-
-    @Override
-    public String toString() {
-        return "DepartQueryParamsDTO{" +
-                "blurry='" + blurry + '\'' +
-                ", createTime=" + Arrays.toString(createTime) +
-                '}';
-    }
 }

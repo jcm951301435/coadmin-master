@@ -7,9 +7,10 @@ import com.java.module.sys.service.SysUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 用户控制器
@@ -38,11 +39,6 @@ public class SysUserController {
         sysUser.setPassword(password);
         userService.add(sysUser);
         return CommonResult.success("添加成功！");
-    }
-
-    @GetMapping("/list")
-    public List<SysUser> list() {
-        return userService.listAll();
     }
 
 }

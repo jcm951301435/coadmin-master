@@ -2,6 +2,8 @@ package com.java.module.sys.service.dto;
 
 import com.java.model.BaseEntity;
 import com.java.module.sys.model.SysListItem;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.Date;
 import java.util.List;
@@ -10,6 +12,8 @@ import java.util.List;
  * @author: jcm
  * @date: 2020/09/14
  */
+@Data
+@EqualsAndHashCode(callSuper = true)
 public class SysListDTO extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
@@ -51,91 +55,4 @@ public class SysListDTO extends BaseEntity {
      */
     private List<SysListItem> items;
 
-    @Override
-    public Long getId() {
-        return id;
-    }
-
-    @Override
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
-
-    @Override
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    @Override
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    @Override
-    public String getCreateBy() {
-        return createBy;
-    }
-
-    @Override
-    public void setCreateBy(String createBy) {
-        this.createBy = createBy;
-    }
-
-    @Override
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    @Override
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    @Override
-    public String getUpdateBy() {
-        return updateBy;
-    }
-
-    @Override
-    public void setUpdateBy(String updateBy) {
-        this.updateBy = updateBy;
-    }
-
-    public List<SysListItem> getItems() {
-        return items;
-    }
-
-    public void setItems(List<SysListItem> items) {
-        this.items = items;
-    }
-
-    @Override
-    public String toString() {
-        return "SysListDTO{" +
-                "id=" + id +
-                ", type='" + type + '\'' +
-                ", value='" + value + '\'' +
-                ", createTime=" + createTime +
-                ", createBy='" + createBy + '\'' +
-                ", updateTime=" + updateTime +
-                ", updateBy='" + updateBy + '\'' +
-                ", items=" + items +
-                '}';
-    }
 }

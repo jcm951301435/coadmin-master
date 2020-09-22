@@ -49,6 +49,13 @@ public class SysMenuController {
         return CommonResult.success(sysMenuList);
     }
 
+    @ApiOperation("全部菜单列表")
+    @GetMapping(value = "/listAll")
+    public CommonResult<List<MenuTreeDTO>> listAll(MenuListParamsDTO params) {
+        List<MenuTreeDTO> sysMenuList = menuService.treeList(params);
+        return CommonResult.success(sysMenuList);
+    }
+
     @ApiOperation("导出菜单")
     @GetMapping(value = "/export")
     @PreAuthorize("hasAnyAuthority('admin', 'sys:menu:list')")

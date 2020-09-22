@@ -19,9 +19,9 @@ public interface SysListItemService {
 
     /**
      * 根据列选项类型获取值
-     * @param type
-     * @param itemList
-     * @return
+     * @param type .
+     * @param itemList .
+     * @return .
      */
     String getValueByType(String type, List<SysListItem> itemList);
 
@@ -32,6 +32,13 @@ public interface SysListItemService {
      * @return .
      */
     String getTypeByValue(String value, List<SysListItem> itemList);
+
+    /**
+     * 根据listIds 查询记录数
+     * @param listIds .
+     * @return .
+     */
+    int countByListIds(List<Long> listIds);
 
     /**
      * 添加菜单

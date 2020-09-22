@@ -1,17 +1,11 @@
 package com.java.module.sys.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.java.exception.DuplicateEntityException;
-import com.java.model.CommonPage;
-import com.java.module.sys.dao.SysUserDao;
+import com.java.module.sys.dao.SysUserRepository;
 import com.java.module.sys.model.SysUser;
 import com.java.module.sys.service.SysUserService;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 /**
  * 用户业务接口实现类
@@ -23,43 +17,29 @@ import java.util.List;
 @Transactional(readOnly = true, rollbackFor = Exception.class)
 public class SysUserServiceImpl implements SysUserService {
 
-    private final SysUserDao userDao;
+    private final SysUserRepository userRepository;
 
-    public SysUserServiceImpl(SysUserDao userDao) {
-        this.userDao = userDao;
+    public SysUserServiceImpl(SysUserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Override
     public SysUser getUserByUserName(String username) {
-        QueryWrapper<SysUser> wrapper = new QueryWrapper<>();
-        wrapper.eq("username", username);
-        return userDao.selectOne(wrapper);
+        return userRepository.findByUsername(username);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int add(SysUser user) {
-        QueryWrapper<SysUser> wrapper = new QueryWrapper<>();
+    public SysUser add(SysUser user) {
         String username = user.getUsername();
-        wrapper.eq("username", username);
-        Integer existsCount = userDao.selectCount(wrapper);
-        if (existsCount != null && existsCount > 0) {
+        String email = user.getEmail();
+        if (userRepository.findByUsername(username) != null) {
             throw new DuplicateEntityException("用户名已存在：" + username);
         }
-        return userDao.insert(user);
-    }
-
-    @Override
-    @Cacheable(cacheNames = "user")
-    public List<SysUser> listAll() {
-        return userDao.selectList(null);
-    }
-
-    @Override
-    public CommonPage<SysUser> listAll(CommonPage<SysUser> commonPage) {
-        Page<SysUser> page = commonPage.getPage();
-        userDao.selectPage(page, null);
-        return CommonPage.fromPage(page);
+        if (userRepository.findByEmail(email) != null) {
+            throw new DuplicateEntityException("email已存在：" + email);
+        }
+        return userRepository.save(user);
     }
 
 }

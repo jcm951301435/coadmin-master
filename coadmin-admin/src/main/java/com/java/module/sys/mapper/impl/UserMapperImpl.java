@@ -18,12 +18,10 @@ public class UserMapperImpl implements UserMapper {
         }
         UserDTO userDTO = new UserDTO();
         userDTO.setUsername(entity.getUsername());
-        userDTO.setAvatarId(entity.getAvatarId());
         userDTO.setEmail(entity.getEmail());
         userDTO.setNickName(entity.getNickName());
         userDTO.setMobilePhone(entity.getMobilePhone());
         userDTO.setEnabled(entity.getEnabled());
-        userDTO.setId(entity.getId());
         userDTO.setCreateTime(entity.getCreateTime());
         userDTO.setCreateBy(entity.getCreateBy());
         userDTO.setUpdateTime(entity.getUpdateTime());

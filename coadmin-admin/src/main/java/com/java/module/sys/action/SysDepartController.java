@@ -48,26 +48,27 @@ public class SysDepartController {
         ExcelUtils.downLoad(departs, DepartTreeDTO.class, response);
     }
 
+    @ApiOperation("菜单列表")
+    @GetMapping(value = "/listAll")
+    public CommonResult<List<DepartTreeDTO>> listAll() {
+        List<DepartTreeDTO> departs = departService.treeList(null);
+        return CommonResult.success(departs);
+    }
+
     @ApiOperation("添加菜单")
     @PostMapping
     @PreAuthorize("hasAnyAuthority('admin', 'sys:depart:add')")
     public CommonResult<String> create(@Validated(SysDepart.Create.class) @RequestBody SysDepart sysDepart) {
-        int result = departService.create(sysDepart);
-        if (result == 1) {
-            return CommonResult.success("添加成功");
-        }
-        return CommonResult.failure("添加失败");
+        departService.create(sysDepart);
+        return CommonResult.success("添加成功");
     }
 
     @ApiOperation("修改菜单")
     @PutMapping
     @PreAuthorize("hasAnyAuthority('admin', 'sys:depart:update')")
     public CommonResult<String> update(@Validated(SysDepart.Update.class) @RequestBody SysDepart sysDepart) {
-        int result = departService.update(sysDepart);
-        if (result == 1) {
-            return CommonResult.success("修改成功");
-        }
-        return CommonResult.failure("修改失败");
+        departService.update(sysDepart);
+        return CommonResult.success("修改成功");
     }
 
     @ApiOperation("删除菜单")

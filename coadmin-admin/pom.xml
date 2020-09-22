@@ -40,7 +40,7 @@
 
         <dependency>
             <groupId>com.java</groupId>
-            <artifactId>coadmin-mybatis</artifactId>
+            <artifactId>coadmin-jpa</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
@@ -51,14 +51,15 @@
         </dependency>
 
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
             <version>${druid.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.bgee.log4jdbc-log4j2</groupId>
+            <artifactId>log4jdbc-log4j2-jdbc4.1</artifactId>
+            <version>${log4jdbc.version}</version>
         </dependency>
 
 <!--        <dependency>-->

@@ -30,7 +30,7 @@ public class SysListItemController {
         this.listItemService = listItemService;
     }
 
-    @ApiOperation("菜单列表")
+    @ApiOperation("列选项列表")
     @GetMapping
     @PreAuthorize("hasAnyAuthority('admin', 'sys:list:list')")
     public CommonResult<List<SysListItem>> list(ListItemQueryParamsDTO params) {
@@ -42,7 +42,7 @@ public class SysListItemController {
         return CommonResult.success(sysListItems);
     }
 
-    @ApiOperation("添加菜单")
+    @ApiOperation("添加列选项")
     @PostMapping
     @PreAuthorize("hasAnyAuthority('admin', 'sys:list:add')")
     public CommonResult<String> create(@Validated(BaseEntity.Create.class) @RequestBody SysListItem sysListItem) {
@@ -53,7 +53,7 @@ public class SysListItemController {
         return CommonResult.failure("添加失败");
     }
 
-    @ApiOperation("修改菜单")
+    @ApiOperation("修改列选项")
     @PutMapping
     @PreAuthorize("hasAnyAuthority('admin', 'sys:list:update')")
     public CommonResult<String> update(@Validated(BaseEntity.Update.class) @RequestBody SysListItem sysListItem) {
@@ -64,7 +64,7 @@ public class SysListItemController {
         return CommonResult.failure("修改失败");
     }
 
-    @ApiOperation("删除菜单")
+    @ApiOperation("删除列选项")
     @DeleteMapping
     @PreAuthorize("hasAnyAuthority('admin', 'sys:list:delete')")
     public CommonResult<String> delete(@RequestBody List<Long> ids) {

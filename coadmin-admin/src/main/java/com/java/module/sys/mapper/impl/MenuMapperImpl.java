@@ -8,7 +8,6 @@ import com.java.module.sys.model.SysMenu;
 import com.java.module.sys.service.SysListItemService;
 import com.java.module.sys.service.SysListService;
 import com.java.module.sys.service.dto.MenuTreeDTO;
-import com.java.module.sys.service.dto.SysListDTO;
 import com.java.util.CollectionUtils;
 import com.java.util.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
@@ -37,8 +36,8 @@ public class MenuMapperImpl implements MenuMapper, InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        SysListDTO menuType = listService.findOneByType("menu_type");
-        menuTypeList = menuType.getItems();
+//        SysListDTO menuType = listService.findOneByType("menu_type");
+//        menuTypeList = menuType.getItems();
     }
 
     @Override
