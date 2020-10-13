@@ -1,8 +1,8 @@
 package com.java.module.sys.dao;
 
+import com.java.module.common.dao.BaseAbstractRepository;
+import com.java.module.common.dao.BaseRepository;
 import com.java.module.sys.model.SysListItem;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,14 +12,14 @@ import java.util.List;
  * @date: 2020/09/14
  */
 @Repository
-public interface SysListItemRepository extends JpaRepository<SysListItem, Long>, JpaSpecificationExecutor<SysListItem> {
+public interface SysListItemRepository extends BaseRepository<SysListItem, Long>, BaseAbstractRepository {
 
     /**
-     * 根据id 批量删除
+     * 根据 listId 查询所有
      *
-     * @param ids .
+     * @param listId .
      * @return .
      */
-    int deleteByIdIn(List<Long> ids);
+    List<SysListItem> findByListId(Long listId);
 
 }

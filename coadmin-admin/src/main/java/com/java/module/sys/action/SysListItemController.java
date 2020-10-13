@@ -1,10 +1,13 @@
 package com.java.module.sys.action;
 
 import com.java.model.BaseEntity;
+import com.java.model.CommonPage;
+import com.java.model.CommonQueryPageSort;
 import com.java.model.CommonResult;
+import com.java.module.sys.dto.ListItemDTO;
 import com.java.module.sys.model.SysListItem;
 import com.java.module.sys.service.SysListItemService;
-import com.java.module.sys.service.dto.ListItemQueryParamsDTO;
+import com.java.module.sys.dto.query.ListItemQueryDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -33,35 +36,25 @@ public class SysListItemController {
     @ApiOperation("列选项列表")
     @GetMapping
     @PreAuthorize("hasAnyAuthority('admin', 'sys:list:list')")
-    public CommonResult<List<SysListItem>> list(ListItemQueryParamsDTO params) {
-        Long listId = params.getListId();
-        if (listId == null) {
-            return CommonResult.success(null);
-        }
-        List<SysListItem> sysListItems = listItemService.findListByListId(listId);
-        return CommonResult.success(sysListItems);
+    public CommonResult<CommonPage<ListItemDTO>> list(ListItemQueryDTO params, CommonQueryPageSort pageSort) {
+        CommonPage<ListItemDTO> page = listItemService.page(params, pageSort);
+        return CommonResult.success(page);
     }
 
     @ApiOperation("添加列选项")
     @PostMapping
     @PreAuthorize("hasAnyAuthority('admin', 'sys:list:add')")
     public CommonResult<String> create(@Validated(BaseEntity.Create.class) @RequestBody SysListItem sysListItem) {
-        int result = listItemService.create(sysListItem);
-        if (result == 1) {
-            return CommonResult.success("添加成功");
-        }
-        return CommonResult.failure("添加失败");
+        listItemService.create(sysListItem);
+        return CommonResult.success("添加成功");
     }
 
     @ApiOperation("修改列选项")
     @PutMapping
     @PreAuthorize("hasAnyAuthority('admin', 'sys:list:update')")
     public CommonResult<String> update(@Validated(BaseEntity.Update.class) @RequestBody SysListItem sysListItem) {
-        int result = listItemService.update(sysListItem);
-        if (result == 1) {
-            return CommonResult.success("修改成功");
-        }
-        return CommonResult.failure("修改失败");
+        listItemService.update(sysListItem);
+        return CommonResult.success("修改成功");
     }
 
     @ApiOperation("删除列选项")

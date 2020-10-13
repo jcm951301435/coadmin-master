@@ -2,10 +2,8 @@ package com.java.module.sys.model;
 
 
 import com.java.model.BaseEntity;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -24,16 +22,6 @@ import java.util.Set;
 public class SysUser extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
-
-    /**
-     * 主键
-     */
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(generator = "snow-flake-id")
-    @GenericGenerator(name = "snow-flake-id", strategy = "com.java.config.SnowFlakeIdGenerator")
-    @ApiModelProperty(value = "ID", hidden = true)
-    private Long id;
 
     /**
      * 用户名
@@ -110,11 +98,11 @@ public class SysUser extends BaseEntity {
             return false;
         }
         SysUser sysUser = (SysUser) o;
-        return id.equals(sysUser.id) && username.equals(sysUser.username);
+        return this.getId().equals(sysUser.getId()) && username.equals(sysUser.username);
     }
 
     @Override
     public int hashCode() {
-        return id.hashCode();
+        return this.getId().hashCode();
     }
 }

@@ -1,5 +1,9 @@
 package com.java.module.sys.service;
 
+import com.java.model.CommonPage;
+import com.java.model.CommonQueryPageSort;
+import com.java.module.sys.dto.ListItemDTO;
+import com.java.module.sys.dto.query.ListItemQueryDTO;
 import com.java.module.sys.model.SysListItem;
 
 import java.util.List;
@@ -11,7 +15,17 @@ import java.util.List;
 public interface SysListItemService {
 
     /**
+     * 分页查询
+     *
+     * @param params   .
+     * @param pageSort .
+     * @return .
+     */
+    CommonPage<ListItemDTO> page(ListItemQueryDTO params, CommonQueryPageSort pageSort);
+
+    /**
      * 根据 listId 获取 listItem
+     *
      * @param listId .
      * @return .
      */
@@ -19,7 +33,8 @@ public interface SysListItemService {
 
     /**
      * 根据列选项类型获取值
-     * @param type .
+     *
+     * @param type     .
      * @param itemList .
      * @return .
      */
@@ -27,7 +42,8 @@ public interface SysListItemService {
 
     /**
      * 根据列选项值获取类型
-     * @param value .
+     *
+     * @param value    .
      * @param itemList .
      * @return .
      */
@@ -35,6 +51,7 @@ public interface SysListItemService {
 
     /**
      * 根据listIds 查询记录数
+     *
      * @param listIds .
      * @return .
      */
@@ -44,24 +61,21 @@ public interface SysListItemService {
      * 添加菜单
      *
      * @param sysListItem .
-     * @return .
      */
-    int create(SysListItem sysListItem);
+    void create(SysListItem sysListItem);
 
     /**
      * 修改菜单
      *
      * @param sysListItem .
-     * @return .
      */
-    int update(SysListItem sysListItem);
+    void update(SysListItem sysListItem);
 
     /**
      * 删除菜单
      *
      * @param ids .
-     * @return .
      */
-    int delete(List<Long> ids);
+    void delete(List<Long> ids);
 
 }

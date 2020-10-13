@@ -11,21 +11,21 @@ public class StringUtils {
     /**
      * 是否为空
      *
-     * @param str .
+     * @param obj .
      * @return .
      */
-    public static boolean isEmpty(String str) {
-        return org.apache.commons.lang3.StringUtils.isEmpty(str);
+    public static boolean isEmpty(Object obj) {
+        return obj == null || "".equals(obj);
     }
 
     /**
      * 是否为非空
      *
-     * @param str .
+     * @param obj .
      * @return .
      */
-    public static boolean isNotEmpty(String str) {
-        return !isEmpty(str);
+    public static boolean isNotEmpty(Object obj) {
+        return !isEmpty(obj);
     }
 
     /**

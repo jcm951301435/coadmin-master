@@ -2,7 +2,7 @@ package com.java.module.sys.service;
 
 import com.java.model.CommonPage;
 import com.java.module.sys.model.SysRole;
-import com.java.module.sys.service.dto.RoleQueryParamsDTO;
+import com.java.module.sys.dto.query.RoleQueryDTO;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ public interface SysRoleService {
      * @param commonPage .
      * @return .
      */
-    CommonPage<SysRole> page(RoleQueryParamsDTO params, CommonPage<SysRole> commonPage);
+    CommonPage<SysRole> page(RoleQueryDTO params, CommonPage<SysRole> commonPage);
 
     /**
      * 查询列表
@@ -28,7 +28,7 @@ public interface SysRoleService {
      * @param params .
      * @return .
      */
-    List<SysRole> list(RoleQueryParamsDTO params);
+    List<SysRole> list(RoleQueryDTO params);
 
     /**
      * 添加

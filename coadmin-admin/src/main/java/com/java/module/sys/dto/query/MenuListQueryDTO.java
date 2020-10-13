@@ -1,4 +1,4 @@
-package com.java.module.sys.service.dto;
+package com.java.module.sys.dto.query;
 
 import lombok.Data;
 
@@ -11,7 +11,7 @@ import java.util.Date;
  * @date: 2020/09/08
  */
 @Data
-public class MenuListParamsDTO {
+public class MenuListQueryDTO {
 
     /**
      * 模糊搜索

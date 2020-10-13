@@ -6,10 +6,11 @@ import com.java.module.sys.dao.SysDepartRepository;
 import com.java.module.sys.mapper.DepartMapper;
 import com.java.module.sys.model.SysDepart;
 import com.java.module.sys.service.SysDepartService;
-import com.java.module.sys.service.dto.DepartQueryParamsDTO;
+import com.java.module.sys.dto.query.DepartQueryDTO;
 import com.java.module.sys.service.dto.DepartTreeDTO;
 import com.java.util.StringUtils;
 import com.java.util.TreeUtils;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,14 +38,14 @@ public class SysDepartServiceImpl implements SysDepartService {
     }
 
     @Override
-    public List<DepartTreeDTO> treeList(DepartQueryParamsDTO params) {
+    public List<DepartTreeDTO> treeList(DepartQueryDTO params) {
         List<SysDepart> departs = departList(params);
         List<DepartTreeDTO> departTrees = departMapper.toDepartTree(departs);
         return TreeUtils.getTreeList(departTrees);
     }
 
     @Override
-    public List<DepartTreeDTO> treeListSort(DepartQueryParamsDTO params) {
+    public List<DepartTreeDTO> treeListSort(DepartQueryDTO params) {
         List<DepartTreeDTO> departTrees = treeList(params);
         return TreeUtils.sort(departTrees, null);
     }
@@ -55,7 +56,10 @@ public class SysDepartServiceImpl implements SysDepartService {
      * @param params .
      * @return .
      */
-    private List<SysDepart> departList(DepartQueryParamsDTO params) {
+    private List<SysDepart> departList(DepartQueryDTO params) {
+        List<Sort.Order> orders = new ArrayList<>();
+        orders.add(new Sort.Order(Sort.Direction.ASC, "sort"));
+        orders.add(new Sort.Order(Sort.Direction.ASC, "name"));
         return departRepository.findAll((Specification<SysDepart>) (root, query, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
             if (params != null) {
@@ -82,7 +86,7 @@ public class SysDepartServiceImpl implements SysDepartService {
                 }
             }
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
-        });
+        }, Sort.by(orders));
     }
 
     @Override

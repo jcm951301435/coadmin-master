@@ -1,7 +1,7 @@
 package com.java.module.sys.service;
 
 import com.java.module.sys.model.SysDepart;
-import com.java.module.sys.service.dto.DepartQueryParamsDTO;
+import com.java.module.sys.dto.query.DepartQueryDTO;
 import com.java.module.sys.service.dto.DepartTreeDTO;
 
 import java.util.List;
@@ -20,14 +20,14 @@ public interface SysDepartService {
      * @param params .
      * @return .
      */
-    List<DepartTreeDTO> treeList(DepartQueryParamsDTO params);
+    List<DepartTreeDTO> treeList(DepartQueryDTO params);
 
     /**
      * 排序树菜单
      * @param params .
      * @return .
      */
-    List<DepartTreeDTO> treeListSort(DepartQueryParamsDTO params);
+    List<DepartTreeDTO> treeListSort(DepartQueryDTO params);
 
     /**
      * 添加部门

@@ -5,7 +5,6 @@ import com.java.model.BaseEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -26,22 +25,6 @@ public class SysListItem extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 主键
-     */
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(generator = "snow-flake-id")
-    @GenericGenerator(name = "snow-flake-id", strategy = "com.java.config.SnowFlakeIdGenerator")
-    @NotNull(groups = Update.class, message = "id 不能为空")
-    private Long id;
-
-    /**
-     * 所属列选id
-     */
-    @Column(name = "list_id")
-    private Long listId;
-
-    /**
      * 值
      */
     @Column(name = "type")
@@ -54,5 +37,13 @@ public class SysListItem extends BaseEntity {
     @Column(name = "value")
     @NotNull(groups = Create.class, message = "选项值不能为空")
     private String value;
+
+    /**
+     * 列选项
+     */
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name = "list_id", referencedColumnName = "id",
+            foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
+    private SysList list;
 
 }

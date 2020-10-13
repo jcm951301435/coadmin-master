@@ -5,7 +5,6 @@ import com.java.model.BaseEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -26,16 +25,6 @@ import java.util.Set;
 public class SysMenu extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
-
-    /**
-     * 主键
-     */
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(generator = "snow-flake-id")
-    @GenericGenerator(name = "snow-flake-id", strategy = "com.java.config.SnowFlakeIdGenerator")
-    @NotNull(groups = Update.class, message = "id 不能为空")
-    private Long id;
 
     /**
      * 标题

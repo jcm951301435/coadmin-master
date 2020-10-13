@@ -37,11 +37,17 @@ public class TreeUtils {
      */
     private static <T extends BaseTreeNode<T>> List<T> getParentList(List<T> list) {
         Map<Long, T> map = list.stream().collect(Collectors.toMap(BaseTreeNode::getId, t -> t));
-        Set<T> parents = new HashSet<>();
+        List<T> parents = new ArrayList<>();
+        Set<Long> idSet = new HashSet<>();
         for (T t : list) {
-            parents.add(getTopEntity(t, map));
+            T temp = getTopEntity(t, map);
+            if (idSet.contains(temp.getId())) {
+                continue;
+            }
+            idSet.add(temp.getId());
+            parents.add(temp);
         }
-        return new ArrayList<>(parents);
+        return parents;
     }
 
     /**

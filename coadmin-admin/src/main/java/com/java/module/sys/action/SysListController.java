@@ -1,11 +1,13 @@
 package com.java.module.sys.action;
 
 import com.java.model.CommonPage;
+import com.java.model.CommonQueryPageSort;
 import com.java.model.CommonResult;
 import com.java.module.sys.action.vo.ListExportVO;
+import com.java.module.sys.dto.ListDTO;
+import com.java.module.sys.dto.query.ListQueryDTO;
 import com.java.module.sys.model.SysList;
 import com.java.module.sys.service.SysListService;
-import com.java.module.sys.service.dto.ListQueryParamsDTO;
 import com.java.util.ExcelUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -36,16 +38,15 @@ public class SysListController {
     @ApiOperation("列选列表")
     @GetMapping
     @PreAuthorize("hasAnyAuthority('admin', 'sys:list:list')")
-    public CommonResult<CommonPage<SysList>> list(ListQueryParamsDTO params,
-                                                  @Validated CommonPage<SysList> commonPage) {
-        CommonPage<SysList> sysLists = listService.page(params, commonPage);
-        return CommonResult.success(sysLists);
+    public CommonResult<CommonPage<ListDTO>> list(ListQueryDTO params, CommonQueryPageSort pageSort) {
+        CommonPage<ListDTO> page = listService.page(params, pageSort);
+        return CommonResult.success(page);
     }
 
     @ApiOperation("导出列选")
     @GetMapping(value = "/export")
     @PreAuthorize("hasAnyAuthority('admin', 'sys:list:list')")
-    public void export(ListQueryParamsDTO params, HttpServletResponse response) {
+    public void export(ListQueryDTO params, HttpServletResponse response) {
         List<ListExportVO> sysLists = listService.listExport(params);
         ExcelUtils.downLoad(sysLists, ListExportVO.class, response);
     }
@@ -54,22 +55,16 @@ public class SysListController {
     @PostMapping
     @PreAuthorize("hasAnyAuthority('admin', 'sys:list:add')")
     public CommonResult<String> create(@Validated(SysList.Create.class) @RequestBody SysList sysList) {
-        int result = listService.create(sysList);
-        if (result == 1) {
-            return CommonResult.success("添加成功");
-        }
-        return CommonResult.failure("添加失败");
+        listService.create(sysList);
+        return CommonResult.success("添加成功");
     }
 
     @ApiOperation("修改列选")
     @PutMapping
     @PreAuthorize("hasAnyAuthority('admin', 'sys:list:update')")
     public CommonResult<String> update(@Validated(SysList.Update.class) @RequestBody SysList sysList) {
-        int result = listService.update(sysList);
-        if (result == 1) {
-            return CommonResult.success("修改成功");
-        }
-        return CommonResult.failure("修改失败");
+        listService.update(sysList);
+        return CommonResult.success("修改成功");
     }
 
     @ApiOperation("删除列选")

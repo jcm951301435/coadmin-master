@@ -5,11 +5,10 @@ import com.java.model.BaseEntity;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import java.util.Set;
 
 /**
  * 列选
@@ -27,16 +26,6 @@ public class SysList extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 主键
-     */
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(generator = "snow-flake-id")
-    @GenericGenerator(name = "snow-flake-id", strategy = "com.java.config.SnowFlakeIdGenerator")
-    @NotNull(groups = Update.class, message = "id 不能为空")
-    private Long id;
-
-    /**
      * 类型
      */
     @Column(name = "type")
@@ -49,5 +38,12 @@ public class SysList extends BaseEntity {
     @Column(name = "value")
     @NotBlank(groups = Create.class, message = "列选说明不能为空")
     private String value;
+
+    /**
+     * 列选明细
+     */
+    @OneToMany(mappedBy = "list", fetch = FetchType.LAZY)
+    @org.hibernate.annotations.ForeignKey(name = "none")
+    private Set<SysListItem> sysListItems;
 
 }

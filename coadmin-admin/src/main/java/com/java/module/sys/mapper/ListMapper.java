@@ -1,8 +1,9 @@
 package com.java.module.sys.mapper;
 
+import com.java.model.CommonPage;
 import com.java.module.sys.action.vo.ListExportVO;
+import com.java.module.sys.dto.ListDTO;
 import com.java.module.sys.model.SysList;
-import com.java.module.sys.model.SysListItem;
 import com.java.module.sys.service.dto.SysListDTO;
 
 import java.util.List;
@@ -14,23 +15,33 @@ import java.util.List;
 public interface ListMapper {
 
     /**
-     * SysList -> SysListDTO
+     * list > ListDTO
+     *
      * @param entity .
      * @return .
      */
-    SysListDTO toListDTO(SysList entity);
+    ListDTO toDTO(SysList entity);
 
     /**
-     * SysList -> SysListDTO
-     * @param entity .
-     * @param itemList .
+     * list > ListDTO
+     *
+     * @param list .
      * @return .
      */
-    SysListDTO toListDTO(SysList entity, List<SysListItem> itemList);
+    List<ListDTO> toDTO(List<SysList> list);
+
+    /**
+     * list > ListDTO
+     *
+     * @param page .
+     * @return .
+     */
+    CommonPage<ListDTO> toDTO(CommonPage<SysList> page);
 
     /**
      * SysListDTO -> ListExportVO
-     * @param sysListDTO .
+     *
+     * @param list .
      * @return .
      */
     List<ListExportVO> toExportVO(List<SysListDTO> list);

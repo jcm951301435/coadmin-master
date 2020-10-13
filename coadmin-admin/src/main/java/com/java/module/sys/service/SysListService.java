@@ -1,9 +1,11 @@
 package com.java.module.sys.service;
 
 import com.java.model.CommonPage;
+import com.java.model.CommonQueryPageSort;
 import com.java.module.sys.action.vo.ListExportVO;
+import com.java.module.sys.dto.ListDTO;
+import com.java.module.sys.dto.query.ListQueryDTO;
 import com.java.module.sys.model.SysList;
-import com.java.module.sys.service.dto.ListQueryParamsDTO;
 import com.java.module.sys.service.dto.SysListDTO;
 
 import java.util.List;
@@ -17,10 +19,10 @@ public interface SysListService {
     /**
      * 分页查询
      * @param params .
-     * @param commonPage .
+     * @param pageSort .
      * @return .
      */
-    CommonPage<SysList> page(ListQueryParamsDTO params, CommonPage<SysList> commonPage);
+    CommonPage<ListDTO> page(ListQueryDTO params, CommonQueryPageSort pageSort);
 
     /**
      * 根据类型获取列选DTO
@@ -35,39 +37,28 @@ public interface SysListService {
      * @param params .
      * @return .
      */
-    List<ListExportVO> listExport(ListQueryParamsDTO params);
-
-    /**
-     * 查询列表
-     *
-     * @param params .
-     * @return .
-     */
-    List<SysList> list(ListQueryParamsDTO params);
+    List<ListExportVO> listExport(ListQueryDTO params);
 
     /**
      * 添加菜单
      *
      * @param sysList .
-     * @return .
      */
-    int create(SysList sysList);
+    void create(SysList sysList);
 
     /**
      * 修改菜单
      *
      * @param sysList .
-     * @return .
      */
-    int update(SysList sysList);
+    void update(SysList sysList);
 
     /**
      * 删除菜单
      *
      * @param ids .
-     * @return .
      */
-    int delete(List<Long> ids);
+    void delete(List<Long> ids);
 
 
 }

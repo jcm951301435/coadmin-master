@@ -1,4 +1,4 @@
-package com.java.module.sys.service.dto;
+package com.java.module.sys.dto.query;
 
 import lombok.Data;
 
@@ -9,7 +9,7 @@ import java.util.Date;
  * @date: 2020/09/15
  */
 @Data
-public class RoleQueryParamsDTO {
+public class RoleQueryDTO {
 
     /**
      * 模糊搜索

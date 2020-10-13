@@ -1,6 +1,8 @@
 package com.java.module.sys.mapper.impl;
 
+import com.java.model.CommonPage;
 import com.java.module.sys.action.vo.ListExportVO;
+import com.java.module.sys.dto.ListDTO;
 import com.java.module.sys.mapper.ListMapper;
 import com.java.module.sys.model.SysList;
 import com.java.module.sys.model.SysListItem;
@@ -19,31 +21,45 @@ import java.util.List;
 public class ListMapperImpl implements ListMapper {
 
     @Override
-    public SysListDTO toListDTO(SysList entity) {
-        SysListDTO sysListDTO = new SysListDTO();
+    public ListDTO toDTO(SysList entity) {
         if (entity == null) {
             return null;
         }
-        sysListDTO.setId(entity.getId());
-        sysListDTO.setType(entity.getType());
-        sysListDTO.setValue(entity.getValue());
-        sysListDTO.setCreateTime(entity.getCreateTime());
-        sysListDTO.setCreateBy(entity.getCreateBy());
-        sysListDTO.setUpdateTime(entity.getUpdateTime());
-        sysListDTO.setUpdateBy(entity.getUpdateBy());
-        return sysListDTO;
+        ListDTO dto = new ListDTO();
+        dto.setId(entity.getId());
+        dto.setType(entity.getType());
+        dto.setValue(entity.getValue());
+        dto.setCreateTime(entity.getCreateTime());
+        dto.setCreateBy(entity.getCreateBy());
+        dto.setUpdateTime(entity.getUpdateTime());
+        dto.setUpdateBy(entity.getUpdateBy());
+        return dto;
     }
 
     @Override
-    public SysListDTO toListDTO(SysList entity, List<SysListItem> itemList) {
-        SysListDTO sysListDTO = toListDTO(entity);
-        if (sysListDTO == null) {
-            return null;
+    public List<ListDTO> toDTO(List<SysList> list) {
+        if (CollectionUtils.isEmpty(list)) {
+            return new ArrayList<>();
         }
-        if (CollectionUtils.isNotEmpty(itemList)) {
-            sysListDTO.setItems(itemList);
+        List<ListDTO> exports = new ArrayList<>();
+        for (SysList sysList : list) {
+            exports.add(toDTO(sysList));
         }
-        return sysListDTO;
+        return exports;
+    }
+
+    @Override
+    public CommonPage<ListDTO> toDTO(CommonPage<SysList> page) {
+        if (page == null) {
+            return new CommonPage<>();
+        }
+        CommonPage<ListDTO> resultPage = new CommonPage<>();
+        resultPage.setPageNum(page.getPageNum());
+        resultPage.setPageSize(page.getPageSize());
+        resultPage.setTotal(page.getTotal());
+        resultPage.setTotalPage(page.getTotalPage());
+        resultPage.setList(toDTO(page.getList()));
+        return resultPage;
     }
 
     @Override

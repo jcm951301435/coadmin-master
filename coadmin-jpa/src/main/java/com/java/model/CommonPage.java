@@ -2,8 +2,9 @@ package com.java.model;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.java.serializer.LongJsonSerializer;
+import lombok.Data;
+import org.springframework.data.domain.Page;
 
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -12,12 +13,11 @@ import java.util.List;
  * @author: jcm
  * @date: 2020/05/19
  */
+@Data
 public class CommonPage<T> {
 
-    @NotNull(message = "页码不能为空")
     private Integer pageNum;
 
-    @NotNull(message = "每页行数不能为空")
     private Integer pageSize;
 
     private Integer totalPage;
@@ -34,76 +34,30 @@ public class CommonPage<T> {
      * @param <E>  .
      * @return .
      */
-//    public static <E> CommonPage<E> fromPage(Page<E> page) {
-//        CommonPage<E> commonPage = new CommonPage<>();
-//        commonPage.setPageNum(((Long) page.getCurrent()).intValue());
-//        commonPage.setPageSize(((Long) page.getSize()).intValue());
-//        commonPage.setTotalPage(((Long) page.getPages()).intValue());
-//        commonPage.setTotal(page.getTotal());
-//        commonPage.setList(page.getRecords());
-//        return commonPage;
-//    }
+    public static <E> CommonPage<E> fromPage(Page<E> page) {
+        CommonPage<E> commonPage = new CommonPage<>();
+        commonPage.setPageNum(page.getNumber());
+        commonPage.setPageSize(page.getSize());
+        commonPage.setTotalPage(page.getTotalPages());
+        commonPage.setTotal(page.getTotalElements());
+        commonPage.setList(page.getContent());
+        return commonPage;
+    }
 
     /**
-     * 根据 CommonPage 构造 Page
-     * 主要用于调用 dao 方法
-     *
-     * @param .
+     * 所有数据
+     * @param list .
+     * @param <E> .
      * @return .
      */
-//    @JsonIgnore
-//    public <E> Page<E> getPage() {
-//        if (this.pageNum != null && this.getPageSize() != null) {
-//            return new Page<>(this.pageNum, this.getPageSize());
-//        }
-//        return null;
-//    }
-
-    public Integer getPageNum() {
-        return pageNum;
+    public static <E> CommonPage<E> all(List<E> list) {
+        CommonPage<E> commonPage = new CommonPage<>();
+        commonPage.setPageNum(1);
+        commonPage.setPageSize(list.size());
+        commonPage.setTotalPage(1);
+        commonPage.setTotal((long) list.size());
+        commonPage.setList(list);
+        return commonPage;
     }
 
-    public void setPageNum(Integer pageNum) {
-        this.pageNum = pageNum;
-    }
-
-    public Integer getPageSize() {
-        return pageSize;
-    }
-
-    public void setPageSize(Integer pageSize) {
-        this.pageSize = pageSize;
-    }
-
-    public Integer getTotalPage() {
-        return totalPage;
-    }
-
-    public void setTotalPage(Integer totalPage) {
-        this.totalPage = totalPage;
-    }
-
-    public Long getTotal() {
-        return total;
-    }
-
-    public void setTotal(Long total) {
-        this.total = total;
-    }
-
-    public List<T> getList() {
-        return list;
-    }
-
-    public void setList(List<T> list) {
-        this.list = list;
-    }
-
-    public CommonPage() {
-    }
-
-    public CommonPage(Integer pageNum, Integer pageSize) {
-        this.pageNum = pageNum;
-        this.pageSize = pageSize;
-    }
 }

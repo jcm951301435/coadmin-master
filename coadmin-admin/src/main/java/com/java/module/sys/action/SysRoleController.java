@@ -4,7 +4,7 @@ import com.java.model.CommonPage;
 import com.java.model.CommonResult;
 import com.java.module.sys.model.SysRole;
 import com.java.module.sys.service.SysRoleService;
-import com.java.module.sys.service.dto.RoleQueryParamsDTO;
+import com.java.module.sys.dto.query.RoleQueryDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -34,7 +34,7 @@ public class SysRoleController {
     @ApiOperation("角色列表")
     @GetMapping
     @PreAuthorize("hasAnyAuthority('admin', 'sys:role:list')")
-    public CommonResult<CommonPage<SysRole>> list(RoleQueryParamsDTO params,
+    public CommonResult<CommonPage<SysRole>> list(RoleQueryDTO params,
                                                   @Validated CommonPage<SysRole> commonPage) {
         CommonPage<SysRole> sysRoles = roleService.page(params, commonPage);
         return CommonResult.success(sysRoles);
@@ -43,7 +43,7 @@ public class SysRoleController {
     @ApiOperation("导出角色")
     @GetMapping(value = "/export")
     @PreAuthorize("hasAnyAuthority('admin', 'sys:role:list')")
-    public void export(RoleQueryParamsDTO params, HttpServletResponse response) {
+    public void export(RoleQueryDTO params, HttpServletResponse response) {
 //        List<ListExportVO> sysLists = roleService.listExport(params);
 //        ExcelUtils.downLoad(sysLists, ListExportVO.class, response);
     }

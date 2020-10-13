@@ -6,6 +6,7 @@ import com.java.model.CommonResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -115,6 +116,18 @@ public class GlobalExceptionHandler {
         String message = e.getConstraintViolations().stream()
                 .map(ConstraintViolation::getMessage).collect(Collectors.joining(","));
         return CommonResult.failure(message);
+    }
+
+    /**
+     * RequestBody required
+     * @param e .
+     * @return .
+     */
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    @ResponseBody
+    public CommonResult<String> httpMessageNotReadableException(HttpMessageNotReadableException e) {
+        LOGGER.error("参数验证错误", e);
+        return CommonResult.failure("参数为传入错误");
     }
 
     /**

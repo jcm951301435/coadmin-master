@@ -1,31 +1,25 @@
 package com.java.common.util;
 
-import javax.persistence.criteria.CriteriaBuilder;
+import com.java.model.CommonPage;
+import com.java.model.CommonQueryPageSort;
+import com.java.util.StringUtils;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.ss.formula.functions.T;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author: jcm
  * @date: 2020/09/15
  */
+@Slf4j
 public class CommonUtils {
-
-//    public static <T> void wrapperCreateTime(QueryWrapper<T> wrapper, Date[] createTimeArray) {
-//        if (createTimeArray != null && createTimeArray.length > 0) {
-//            Date createTimeBegin = createTimeArray[0];
-//            Date createTimeEnd = null;
-//            if (createTimeArray.length > 1) {
-//                createTimeEnd = createTimeArray[1];
-//            }
-//            if (createTimeBegin != null) {
-//                wrapper.ge("create_time", createTimeBegin);
-//            }
-//            if (createTimeEnd != null) {
-//                wrapper.le("create_time", createTimeEnd);
-//            }
-//        }
-//    }
-
-    public static <T> void criteriaCreateTime(CriteriaBuilder criteriaBuilder) {
-
-    }
 
 }

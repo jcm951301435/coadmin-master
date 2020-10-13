@@ -9,7 +9,7 @@ import com.java.module.sys.model.SysMenu;
 import com.java.module.sys.model.SysRole;
 import com.java.module.sys.model.SysUser;
 import com.java.module.sys.service.SysMenuService;
-import com.java.module.sys.service.dto.MenuListParamsDTO;
+import com.java.module.sys.dto.query.MenuListQueryDTO;
 import com.java.module.sys.service.dto.MenuTreeDTO;
 import com.java.util.CollectionUtils;
 import com.java.util.SecurityUtils;
@@ -68,14 +68,14 @@ public class SysMenuServiceImpl implements SysMenuService {
     }
 
     @Override
-    public List<MenuTreeDTO> treeList(MenuListParamsDTO params) {
+    public List<MenuTreeDTO> treeList(MenuListQueryDTO params) {
         List<SysMenu> menuList = menuList(params);
         List<MenuTreeDTO> menuTreeDTOList = menuMapper.toMenuTree(menuList);
         return TreeUtils.getTreeList(menuTreeDTOList);
     }
 
     @Override
-    public List<MenuTreeDTO> treeListSort(MenuListParamsDTO params) {
+    public List<MenuTreeDTO> treeListSort(MenuListQueryDTO params) {
         List<MenuTreeDTO> menuList = treeList(params);
         return TreeUtils.sort(menuList, null);
     }
@@ -86,7 +86,7 @@ public class SysMenuServiceImpl implements SysMenuService {
      * @param params .
      * @return .
      */
-    private List<SysMenu> menuList(MenuListParamsDTO params) {
+    private List<SysMenu> menuList(MenuListQueryDTO params) {
         List<Sort.Order> orders = new ArrayList<>();
         orders.add(new Sort.Order(Sort.Direction.ASC, "type"));
         orders.add(new Sort.Order(Sort.Direction.ASC, "sort"));

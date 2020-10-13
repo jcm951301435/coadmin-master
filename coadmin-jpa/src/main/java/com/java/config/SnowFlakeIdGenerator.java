@@ -3,13 +3,19 @@ package com.java.config;
 import com.java.model.SnowFlake;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.HibernateException;
+import org.hibernate.MappingException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;
+import org.hibernate.id.Configurable;
 import org.hibernate.id.IdentifierGenerator;
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Value;
+import org.hibernate.service.ServiceRegistry;
+import org.hibernate.type.Type;
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
+import java.util.Properties;
 
 /**
  * 自定义id生成
@@ -19,15 +25,9 @@ import java.io.Serializable;
  */
 @Slf4j
 @Component
-public class SnowFlakeIdGenerator implements IdentifierGenerator, InitializingBean {
+public class SnowFlakeIdGenerator implements IdentifierGenerator, Configurable, ApplicationContextAware {
 
-    @Value("${snow.flake.id.data}")
-    private Long dataId;
-
-    @Value("${snow.flake.id.machine}")
-    private Long machineId;
-
-    private SnowFlake snowFlake;
+    private static ApplicationContext applicationContext;
 
     public SnowFlakeIdGenerator() {
         super();
@@ -39,27 +39,29 @@ public class SnowFlakeIdGenerator implements IdentifierGenerator, InitializingBe
     }
 
     private SnowFlake getSnowFlake() {
-        if (snowFlake == null) {
-            init();
-        }
-        if (snowFlake == null) {
-            log.error("未能初始化 snowFlake null");
-        }
-        return snowFlake;
-    }
-
-    private void init() {
-        log.info("SnowFlake init dataId:{}, machineId:{}", dataId, machineId);
-        if (dataId != null && machineId != null) {
-            snowFlake = new SnowFlake(dataId, machineId);
+        if (applicationContext != null) {
+            try {
+                SnowFlakeProvider snowFlakeProvider = applicationContext.getBean(SnowFlakeProvider.class);
+                SnowFlake snowFlake = snowFlakeProvider.getSnowFlake();
+                if (snowFlake != null) {
+                    return snowFlake;
+                }
+            } catch (Exception e) {
+                log.error("无法获取 bean of SnowFlakeProvider", e);
+            }
         } else {
-            log.warn("未配置snow flake 生成所需的属性 snow.flake.id.data, snow.flake.id.machine");
-            snowFlake = new SnowFlake(0, 0);
+            log.error("无法获取spring环境");
         }
+        log.warn("无法获取配置的SnowFlake，使用默认配置");
+        return new SnowFlake(0, 0);
     }
 
     @Override
-    public void afterPropertiesSet() throws Exception {
-        init();
+    public void configure(Type type, Properties properties, ServiceRegistry serviceRegistry) throws MappingException {
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        SnowFlakeIdGenerator.applicationContext = applicationContext;
     }
 }

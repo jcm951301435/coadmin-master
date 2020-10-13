@@ -4,7 +4,6 @@ package com.java.module.sys.model;
 import com.java.model.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -22,15 +21,6 @@ import java.util.Set;
 public class SysRole extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
-
-    /**
-     * 主键
-     */
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(generator = "snow-flake-id")
-    @GenericGenerator(name = "snow-flake-id", strategy = "com.java.config.SnowFlakeIdGenerator")
-    private Long id;
 
     /**
      * 角色名
@@ -85,11 +75,11 @@ public class SysRole extends BaseEntity {
             return false;
         }
         SysRole sysRole = (SysRole) o;
-        return id.equals(sysRole.id);
+        return this.getId().equals(sysRole.getId());
     }
 
     @Override
     public int hashCode() {
-        return id.hashCode();
+        return this.getId().hashCode();
     }
 }

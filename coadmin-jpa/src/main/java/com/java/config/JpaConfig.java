@@ -12,6 +12,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  */
 @Configuration
 @EnableJpaAuditing(auditorAwareRef = "auditorAware")
-@EnableJpaRepositories(basePackages= "com.java.*.*.dao")
+@EnableJpaRepositories(basePackages= "com.java.*.*.dao", repositoryFactoryBeanClass = BaseRepositoryFactoryBean.class)
 public class JpaConfig {
 }

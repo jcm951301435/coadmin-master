@@ -3,7 +3,7 @@ package com.java.module.sys.action;
 import com.java.model.CommonResult;
 import com.java.module.sys.model.SysDepart;
 import com.java.module.sys.service.SysDepartService;
-import com.java.module.sys.service.dto.DepartQueryParamsDTO;
+import com.java.module.sys.dto.query.DepartQueryDTO;
 import com.java.module.sys.service.dto.DepartTreeDTO;
 import com.java.util.ExcelUtils;
 import io.swagger.annotations.Api;
@@ -35,7 +35,7 @@ public class SysDepartController {
     @ApiOperation("菜单列表")
     @GetMapping
     @PreAuthorize("hasAnyAuthority('admin', 'sys:depart:list')")
-    public CommonResult<List<DepartTreeDTO>> list(DepartQueryParamsDTO params) {
+    public CommonResult<List<DepartTreeDTO>> list(DepartQueryDTO params) {
         List<DepartTreeDTO> departs = departService.treeList(params);
         return CommonResult.success(departs);
     }
@@ -43,7 +43,7 @@ public class SysDepartController {
     @ApiOperation("导出菜单")
     @GetMapping(value = "/export")
     @PreAuthorize("hasAnyAuthority('admin', 'sys:depart:list')")
-    public void export(DepartQueryParamsDTO params, HttpServletResponse response) {
+    public void export(DepartQueryDTO params, HttpServletResponse response) {
         List<DepartTreeDTO> departs = departService.treeListSort(params);
         ExcelUtils.downLoad(departs, DepartTreeDTO.class, response);
     }

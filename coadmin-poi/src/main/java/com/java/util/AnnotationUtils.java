@@ -10,10 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author: jcm
@@ -85,13 +82,11 @@ public class AnnotationUtils {
         if (showIndex) {
             columnList.add(getIndexColumn());
         }
-        List<Class<?>> superClasses = getSupperClasses(cls);
-        for (Class<?> clsTmp : superClasses) {
-            for (Field field : clsTmp.getDeclaredFields()) {
-                BaseExcelColumn column = initExcelColumn(field);
-                if (column != null) {
-                    columnList.add(column);
-                }
+        Set<Field> fieldSet = ReflectUtils.getAllFieldsWithSupper(cls);
+        for (Field field : fieldSet) {
+            BaseExcelColumn column = initExcelColumn(field);
+            if (column != null) {
+                columnList.add(column);
             }
         }
         LOGGER.info("end--初始化表格字段信息");
@@ -119,7 +114,7 @@ public class AnnotationUtils {
         Annotation[] annotations = field.getAnnotations();
         for (Annotation annotation : annotations) {
             String fieldName = field.getName();
-            String methodName = getGetMethodName(fieldName);
+            String methodName = ReflectUtils.getGetMethodName(fieldName);
             if (StringUtils.isNotEmpty(fieldName)) {
                 if (annotation instanceof ExcelColumn) {
                     ExcelColumn excelColumn = (ExcelColumn) annotation;
@@ -134,39 +129,6 @@ public class AnnotationUtils {
             }
         }
         return null;
-    }
-
-    /**
-     * 根据属性拼接get方法
-     * 注: 此处字段名必须为首字母小写(若不为小写 表示不符合规定 不处理此种情况)
-     *
-     * @param fieldName 字段名
-     * @return 字段 get 方法名
-     */
-    private static String getGetMethodName(String fieldName) {
-        char[] chars = fieldName.toCharArray();
-        chars[0] = (char) (chars[0] - 32);
-        return "get" + new String(chars);
-    }
-
-    /**
-     * 获取类 所有父类 包括自己
-     *
-     * @param cls .
-     * @return .
-     */
-    private static List<Class<?>> getSupperClasses(Class<?> cls) {
-        List<Class<?>> classList = new ArrayList<>();
-        classList.add(cls);
-        Class<?> superClass = cls.getSuperclass();
-        while (superClass != null) {
-            if ("java.lang.Object".equals(superClass.getSimpleName())) {
-                break;
-            }
-            classList.add(superClass);
-            superClass = superClass.getSuperclass();
-        }
-        return classList;
     }
 
     /**

@@ -4,7 +4,7 @@ import com.java.model.CommonPage;
 import com.java.module.sys.dao.SysRoleRepository;
 import com.java.module.sys.model.SysRole;
 import com.java.module.sys.service.SysRoleService;
-import com.java.module.sys.service.dto.RoleQueryParamsDTO;
+import com.java.module.sys.dto.query.RoleQueryDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,7 +27,7 @@ public class SysRoleServiceImpl implements SysRoleService {
     }
 
     @Override
-    public CommonPage<SysRole> page(RoleQueryParamsDTO params, CommonPage<SysRole> commonPage) {
+    public CommonPage<SysRole> page(RoleQueryDTO params, CommonPage<SysRole> commonPage) {
 //        QueryWrapper<SysRole> wrapper = new QueryWrapper<>();
 //        List<RoleDTO> roleDTOS = roleDao.listRole(params);
 //        Page<SysRole> page = commonPage.getPage();
@@ -37,7 +37,7 @@ public class SysRoleServiceImpl implements SysRoleService {
     }
 
     @Override
-    public List<SysRole> list(RoleQueryParamsDTO params) {
+    public List<SysRole> list(RoleQueryDTO params) {
         return null;
     }
 

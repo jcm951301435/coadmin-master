@@ -3,7 +3,7 @@ package com.java.module.sys.service;
 import com.java.module.security.model.SecurityUserDetails;
 import com.java.module.sys.action.vo.MenuPermissionsVO;
 import com.java.module.sys.model.SysMenu;
-import com.java.module.sys.service.dto.MenuListParamsDTO;
+import com.java.module.sys.dto.query.MenuListQueryDTO;
 import com.java.module.sys.service.dto.MenuTreeDTO;
 
 import java.util.List;
@@ -30,14 +30,14 @@ public interface SysMenuService {
      * @param params .
      * @return .
      */
-    List<MenuTreeDTO> treeList(MenuListParamsDTO params);
+    List<MenuTreeDTO> treeList(MenuListQueryDTO params);
 
     /**
      * 排序树菜单
      * @param params .
      * @return .
      */
-    List<MenuTreeDTO> treeListSort(MenuListParamsDTO params);
+    List<MenuTreeDTO> treeListSort(MenuListQueryDTO params);
 
     /**
      * 添加菜单

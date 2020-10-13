@@ -5,7 +5,7 @@ import com.java.model.CommonResult;
 import com.java.module.sys.action.vo.MenuPermissionsVO;
 import com.java.module.sys.model.SysMenu;
 import com.java.module.sys.service.SysMenuService;
-import com.java.module.sys.service.dto.MenuListParamsDTO;
+import com.java.module.sys.dto.query.MenuListQueryDTO;
 import com.java.module.sys.service.dto.MenuTreeDTO;
 import com.java.util.ExcelUtils;
 import io.swagger.annotations.Api;
@@ -44,14 +44,14 @@ public class SysMenuController {
     @ApiOperation("菜单列表")
     @GetMapping
     @PreAuthorize("hasAnyAuthority('admin', 'sys:menu:list')")
-    public CommonResult<List<MenuTreeDTO>> list(MenuListParamsDTO params) {
+    public CommonResult<List<MenuTreeDTO>> list(MenuListQueryDTO params) {
         List<MenuTreeDTO> sysMenuList = menuService.treeList(params);
         return CommonResult.success(sysMenuList);
     }
 
     @ApiOperation("全部菜单列表")
     @GetMapping(value = "/listAll")
-    public CommonResult<List<MenuTreeDTO>> listAll(MenuListParamsDTO params) {
+    public CommonResult<List<MenuTreeDTO>> listAll(MenuListQueryDTO params) {
         List<MenuTreeDTO> sysMenuList = menuService.treeList(params);
         return CommonResult.success(sysMenuList);
     }
@@ -59,7 +59,7 @@ public class SysMenuController {
     @ApiOperation("导出菜单")
     @GetMapping(value = "/export")
     @PreAuthorize("hasAnyAuthority('admin', 'sys:menu:list')")
-    public void export(MenuListParamsDTO params, HttpServletResponse response) {
+    public void export(MenuListQueryDTO params, HttpServletResponse response) {
         List<MenuTreeDTO> sysMenuList = menuService.treeListSort(params);
         ExcelUtils.downLoad(sysMenuList, MenuTreeDTO.class, response);
     }
